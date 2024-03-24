@@ -1,5 +1,8 @@
 ﻿using EStoreBackend.Application.Features.Commands.Policy.CreatePolicy;
+using EStoreBackend.Application.Features.Commands.Policy.RemovePolicy;
+using EStoreBackend.Application.Features.Commands.Policy.UpdatePolciy;
 using EStoreBackend.Application.Features.Queries.Policy.GetAllPolicy;
+using EStoreBackend.Application.Features.Queries.Policy.GetByIdPolicy;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,10 +27,32 @@ namespace EStoreBackend.API.Controllers
             return Ok(response);
         }
 
+        [HttpGet("[action]/{Id}")]
+        public async Task<IActionResult> GetByIdPolicy([FromRoute] GetByIdPolicyQueryRequest request)
+        {
+            GetByIdPolicyQueryResponse response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
         [HttpPost("[action]")]
-        public async Task<IActionResult> CreatePolicy([FromQuery] CreatePolicyCommandRequest request)
+        public async Task<IActionResult> CreatePolicy([FromBody] CreatePolicyCommandRequest request)
         {
             CreatePolicyCommandResponse response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpPut("[action]")]
+        public async Task<IActionResult> UpdatePolicy([FromBody] UpdatePolicyCommandRequest request)
+        {
+            UpdatePolicyCommandResponse response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpDelete("[action]/{Id}")]
+        public async Task<IActionResult> RemovePolicy(string Id)
+        {
+            RemovePolicyCommandRequest request = new RemovePolicyCommandRequest { Id = Id };
+            RemovePolicyCommandResponse response = await _mediator.Send(request);
             return Ok(response);
         }
     }
