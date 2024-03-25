@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using EStoreBackend.Application.Interfaces.Repositories;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,21 @@ namespace EStoreBackend.Application.Features.Queries.Brand.GetAllBrand
 {
     public class GetAllBrandQueryHandler : IRequestHandler<GetAllBrandQueryRequest, GetAllBrandQueryResponse>
     {
-        public Task<GetAllBrandQueryResponse> Handle(GetAllBrandQueryRequest request, CancellationToken cancellationToken)
+        private readonly IBrandReadRepository _brandReadRepository;
+
+        public GetAllBrandQueryHandler(IBrandReadRepository brandReadRepository)
         {
-            throw new NotImplementedException();
+            _brandReadRepository = brandReadRepository;
+        }
+
+        public async Task<GetAllBrandQueryResponse> Handle(GetAllBrandQueryRequest request, CancellationToken cancellationToken)
+        {
+            var brands = _brandReadRepository.GetAll().ToList();
+            return new()
+            {
+                Brands = brands,
+            };
+
         }
     }
 }

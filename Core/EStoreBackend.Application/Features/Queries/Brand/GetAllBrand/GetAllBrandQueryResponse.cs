@@ -2,5 +2,6 @@
 {
     public class GetAllBrandQueryResponse
     {
+        public object Brands { get; set; }
     }
 }
