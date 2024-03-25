@@ -16,7 +16,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\EStoreBackend.Infrastructure\EStoreBackend.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Infrastructure\EStoreBackend.Persistence\EStoreBackend.Persistence.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>

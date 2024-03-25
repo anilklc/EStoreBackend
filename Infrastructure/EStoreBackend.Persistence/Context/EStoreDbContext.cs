@@ -23,6 +23,8 @@ namespace EStoreBackend.Persistence.Context
         public DbSet<Policy> Policies { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Slider> Sliders { get; set; }
+        public DbSet<BrandImage> BrandImages { get; set; }
+
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {

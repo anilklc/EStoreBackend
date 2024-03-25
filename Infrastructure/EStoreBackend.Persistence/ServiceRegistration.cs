@@ -35,6 +35,8 @@ namespace EStoreBackend.Persistence
             services.AddScoped<ISliderWriteRepository,SliderWriteRepository>();
             services.AddScoped<ISocialMediaReadRepository,SocialMediaReadRepository>();
             services.AddScoped<ISocialMediaWriteRepository,SocialMediaWriteRepository>();
+            services.AddScoped<IBrandImageReadRepository,BrandImageReadRepository>();
+            services.AddScoped<IBrandImageWriteRepository,BrandImageWriteRepository>();
         }
     }
 }

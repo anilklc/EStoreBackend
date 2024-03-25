@@ -10,6 +10,7 @@ namespace EStoreBackend.Domain.Entities
     public class Brand : BaseEntity
     {
         public string BrandName { get; set; }
-        public string BrandImageUrl { get; set; }
+        public ICollection<BrandImage> BrandImages { get; set; }
+
     }
 }
