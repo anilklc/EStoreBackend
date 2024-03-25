@@ -22,6 +22,7 @@ namespace EStoreBackend.Application.Features.Commands.Brand.UpdateBrand
         {
             var brand = await _brandReadRepository.GetByIdAsync(request.Id);
             brand.BrandName = request.BrandName;
+            await _brandWriteRepository.SaveAsync();
             return new();
         }
     }
