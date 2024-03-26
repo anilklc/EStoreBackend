@@ -6,6 +6,6 @@ namespace EStoreBackend.Application.Features.Commands.BrandImage.UpdateBrandImag
     public class UpdateBrandImageCommandRequest : IRequest<UpdateBrandImageCommandResponse>
     {
         public string Id { get; set; }
-        public IFormFile fromFile { get; set; }
+        public IFormFile formFile { get; set; }
     }
 }

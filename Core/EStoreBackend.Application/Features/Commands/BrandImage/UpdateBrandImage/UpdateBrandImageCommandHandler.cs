@@ -26,7 +26,7 @@ namespace EStoreBackend.Application.Features.Commands.BrandImage.UpdateBrandImag
         public async Task<UpdateBrandImageCommandResponse> Handle(UpdateBrandImageCommandRequest request, CancellationToken cancellationToken)
         {
             var file = await _brandImageReadRepository.GetByIdAsync(request.Id);
-            file.ImagePath = _fileHelper.Update(request.fromFile,PathConstants.ImagesBrandAddPath+file.ImagePath,PathConstants.ImagesBrandAddPath);
+            file.ImagePath = _fileHelper.Update(request.formFile,PathConstants.ImagesBrandAddPath+file.ImagePath,PathConstants.ImagesBrandAddPath);
             await _brandImageWriteRepository.SaveAsync();
             return new();
 

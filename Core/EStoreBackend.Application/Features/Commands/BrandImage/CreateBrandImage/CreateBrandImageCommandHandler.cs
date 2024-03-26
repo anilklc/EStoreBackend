@@ -26,8 +26,8 @@ namespace EStoreBackend.Application.Features.Commands.BrandImage.CreateBrandImag
             
             await _brandImageWriteRepository.AddAsync(new()
             {
-                ImagePath = _fileHelper.Upload(request.fromFile, PathConstants.ImagesBrandAddPath),
-                BrandId = request.BrandId,
+                ImagePath = _fileHelper.Upload(request.FormFile, PathConstants.ImagesBrandAddPath),
+                BrandId = Guid.Parse(request.BrandId),
             });
             await _brandImageWriteRepository.SaveAsync();
             return new();

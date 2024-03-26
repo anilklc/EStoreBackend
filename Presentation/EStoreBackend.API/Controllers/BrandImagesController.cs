@@ -2,7 +2,9 @@
 using EStoreBackend.Application.Features.Commands.BrandImage.RemoveBrandImage;
 using EStoreBackend.Application.Features.Commands.BrandImage.UpdateBrandImage;
 using EStoreBackend.Application.Features.Commands.Policy.RemovePolicy;
+using EStoreBackend.Application.Features.Queries.Brand.GetByIdBrand;
 using EStoreBackend.Application.Features.Queries.BrandImage.GetBrandImageByBrandId;
+using EStoreBackend.Application.Features.Queries.BrandImage.GetBrandImageById;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,11 +13,11 @@ namespace EStoreBackend.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BrandImgesController : ControllerBase
+    public class BrandImagesController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public BrandImgesController(IMediator mediator)
+        public BrandImagesController(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -27,17 +29,26 @@ namespace EStoreBackend.API.Controllers
             return Ok(response);
         }
 
+        [HttpGet("[action]/{Id}")]
+        public async Task<IActionResult> GetBrandImageById([FromRoute] GetBrandImageByIdQueryRequest request)
+        {
+            GetBrandImageByIdQueryResponse response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> CreateBrandImage([FromForm] CreateBrandImageCommandRequest request)
-        {
-            CreateBrandImageCommandResponse response = await _mediator.Send(request);
+        public async Task<IActionResult> CreateBrandImage(IFormFile formFile,string brandId)
+        {   
+            CreateBrandImageCommandRequest request =new(){ FormFile=formFile,BrandId =brandId};
+             CreateBrandImageCommandResponse response = await _mediator.Send(request);
             return Ok(response);
         }
 
         [HttpPut("[action]")]
-        public async Task<IActionResult> UpdateBrandImage([FromForm] UpdateBrandImageCommandRequest request)
+        public async Task<IActionResult> UpdateBrandImage(IFormFile formFile, string id)
         {
+            UpdateBrandImageCommandRequest request = new() { formFile = formFile, Id = id };
             UpdateBrandImageCommandResponse response = await _mediator.Send(request);
             return Ok(response);
         }

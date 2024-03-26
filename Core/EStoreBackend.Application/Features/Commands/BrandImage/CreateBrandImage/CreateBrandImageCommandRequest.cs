@@ -5,7 +5,7 @@ namespace EStoreBackend.Application.Features.Commands.BrandImage.CreateBrandImag
 {
     public class CreateBrandImageCommandRequest : IRequest<CreateBrandImageCommandResponse>
     {
-        public IFormFile fromFile { get; set; }
-        public Guid BrandId { get; set; }
+        public IFormFile FormFile { get; set; }
+        public string BrandId { get; set; }
     }
 }
