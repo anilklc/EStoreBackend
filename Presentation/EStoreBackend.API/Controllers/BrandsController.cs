@@ -2,6 +2,7 @@
 using EStoreBackend.Application.Features.Commands.Brand.RemoveBrand;
 using EStoreBackend.Application.Features.Commands.Brand.UpdateBrand;
 using EStoreBackend.Application.Features.Queries.Brand.GetAllBrand;
+using EStoreBackend.Application.Features.Queries.Brand.GetAllBrandWithBrandImage;
 using EStoreBackend.Application.Features.Queries.Brand.GetByIdBrand;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +31,13 @@ namespace EStoreBackend.API.Controllers
         public async Task<IActionResult> GetByIdBrand([FromRoute] GetByIdBrandQueryRequest request)
         {
             GetByIdBrandQueryResponse response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetAllBrandWithBrandImage()
+        {
+            GetAllBrandWithBrandImageQueryResponse response = await _mediator.Send(new GetAllBrandWithBrandImageQueryRequest());
             return Ok(response);
         }
 
