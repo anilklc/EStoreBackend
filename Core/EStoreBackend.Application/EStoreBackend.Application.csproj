@@ -21,4 +21,9 @@
     <ProjectReference Include="..\EStoreBackend.Domain\EStoreBackend.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Commands\Category\" />
+    <Folder Include="Features\Queries\Category\" />
+  </ItemGroup>
+
 </Project>

@@ -11,6 +11,6 @@ namespace EStoreBackend.Domain.Entities
     {
         public string AboutTitle { get; set; }
         public string AboutDescription { get; set; }
-        public string AboutImageUrl { get; set; }
+        public string AboutIcon { get; set; }
     }
 }
