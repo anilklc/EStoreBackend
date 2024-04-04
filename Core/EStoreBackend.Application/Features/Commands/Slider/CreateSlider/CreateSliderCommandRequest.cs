@@ -1,18 +1,15 @@
-﻿using EStoreBackend.Domain.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 
-namespace EStoreBackend.Domain.Entities
+namespace EStoreBackend.Application.Features.Commands.Slider.CreateSlider
 {
-    public class Slider : BaseEntity
+    public class CreateSliderCommandRequest : IRequest<CreateSliderCommandResponse>
     {
         public string SliderTitle { get; set; }
         public string SliderSubtitle { get; set; }
         public string? SliderImagePath { get; set; }
         public string SliderTargetUrl { get; set; }
         public bool SliderActive { get; set; }
+        public IFormFile FormFile { get; set; }
     }
 }

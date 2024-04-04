@@ -1,14 +1,8 @@
-﻿using EStoreBackend.Domain.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EStoreBackend.Domain.Entities
+﻿namespace EStoreBackend.Application.Features.Queries.Slider.GetByIdSlider
 {
-    public class Slider : BaseEntity
+    public class GetByIdSliderQueryResponse
     {
+        public string Id { get; set; }
         public string SliderTitle { get; set; }
         public string SliderSubtitle { get; set; }
         public string? SliderImagePath { get; set; }
