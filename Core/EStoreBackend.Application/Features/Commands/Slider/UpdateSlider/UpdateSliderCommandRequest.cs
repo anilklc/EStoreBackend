@@ -11,6 +11,5 @@ namespace EStoreBackend.Application.Features.Commands.Slider.UpdateSlider
         public string? SliderImagePath { get; set; }
         public string SliderTargetUrl { get; set; }
         public bool SliderActive { get; set; }
-        public IFormFile? FormFile { get; set; }
     }
 }

@@ -41,7 +41,7 @@ namespace EStoreBackend.API.Controllers
         public async Task<IActionResult> CreateBrandImage(IFormFile formFile,string brandId)
         {   
             CreateBrandImageCommandRequest request =new(){ FormFile=formFile,BrandId =brandId};
-             CreateBrandImageCommandResponse response = await _mediator.Send(request);
+            CreateBrandImageCommandResponse response = await _mediator.Send(request);
             return Ok(response);
         }
 

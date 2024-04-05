@@ -210,9 +210,6 @@ namespace EStoreBackend.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ReviewImagePath")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ReviewTitle")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -226,6 +223,29 @@ namespace EStoreBackend.Persistence.Migrations
                     b.ToTable("Reviews");
                 });
 
+            modelBuilder.Entity("EStoreBackend.Domain.Entities.ReviewImage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ImagePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("ReviewId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReviewId");
+
+                    b.ToTable("ReviewImage");
+                });
+
             modelBuilder.Entity("EStoreBackend.Domain.Entities.Slider", b =>
                 {
                     b.Property<Guid>("Id")
@@ -237,9 +257,6 @@ namespace EStoreBackend.Persistence.Migrations
 
                     b.Property<bool>("SliderActive")
                         .HasColumnType("bit");
-
-                    b.Property<string>("SliderImagePath")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SliderSubtitle")
                         .IsRequired()
@@ -258,6 +275,29 @@ namespace EStoreBackend.Persistence.Migrations
                     b.ToTable("Sliders");
                 });
 
+            modelBuilder.Entity("EStoreBackend.Domain.Entities.SliderImage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ImagePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("SliderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SliderId");
+
+                    b.ToTable("SliderImage");
+                });
+
             modelBuilder.Entity("EStoreBackend.Domain.Entities.BrandImage", b =>
                 {
                     b.HasOne("EStoreBackend.Domain.Entities.Brand", "Brand")
@@ -269,9 +309,41 @@ namespace EStoreBackend.Persistence.Migrations
                     b.Navigation("Brand");
                 });
 
+            modelBuilder.Entity("EStoreBackend.Domain.Entities.ReviewImage", b =>
+                {
+                    b.HasOne("EStoreBackend.Domain.Entities.Review", "Review")
+                        .WithMany("ReviewImages")
+                        .HasForeignKey("ReviewId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Review");
+                });
+
+            modelBuilder.Entity("EStoreBackend.Domain.Entities.SliderImage", b =>
+                {
+                    b.HasOne("EStoreBackend.Domain.Entities.Slider", "Slider")
+                        .WithMany("SliderImages")
+                        .HasForeignKey("SliderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Slider");
+                });
+
             modelBuilder.Entity("EStoreBackend.Domain.Entities.Brand", b =>
                 {
                     b.Navigation("BrandImages");
+                });
+
+            modelBuilder.Entity("EStoreBackend.Domain.Entities.Review", b =>
+                {
+                    b.Navigation("ReviewImages");
+                });
+
+            modelBuilder.Entity("EStoreBackend.Domain.Entities.Slider", b =>
+                {
+                    b.Navigation("SliderImages");
                 });
 #pragma warning restore 612, 618
         }

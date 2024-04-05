@@ -6,6 +6,5 @@
         public string ReviewerName { get; set; }
         public string ReviewTitle { get; set; }
         public string ReviewComment { get; set; }
-        public string? ReviewImagePath { get; set; }
     }
 }

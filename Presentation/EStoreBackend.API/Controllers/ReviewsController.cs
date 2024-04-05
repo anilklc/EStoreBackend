@@ -34,14 +34,14 @@ namespace EStoreBackend.API.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> CreateReview(CreateReviewCommandRequest request)
+        public async Task<IActionResult> CreateReview([FromBody] CreateReviewCommandRequest request)
         {
             CreateReviewCommandResponse response = await _mediator.Send(request);
             return Ok(response);
         }
 
         [HttpPut("[action]")]
-        public async Task<IActionResult> UpdateReview(UpdateReviewCommandRequest request)
+        public async Task<IActionResult> UpdateReview([FromBody] UpdateReviewCommandRequest request)
         {
             UpdateReviewCommandResponse response = await _mediator.Send(request);
             return Ok(response);

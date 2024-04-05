@@ -13,11 +13,10 @@ namespace EStoreBackend.Application.Features.Commands.Review.CreateReview
     public class CreateReviewCommandHandler : IRequestHandler<CreateReviewCommandRequest, CreateReviewCommandResponse>
     {
         private readonly IReviewWriteRepository _reviewWriteRepository;
-        private readonly IFileHelper _fileHelper;
-        public CreateReviewCommandHandler(IReviewWriteRepository reviewWriteRepository, IFileHelper fileHelper)
+
+        public CreateReviewCommandHandler(IReviewWriteRepository reviewWriteRepository)
         {
             _reviewWriteRepository = reviewWriteRepository;
-            _fileHelper = fileHelper;
         }
 
         public async Task<CreateReviewCommandResponse> Handle(CreateReviewCommandRequest request, CancellationToken cancellationToken)
@@ -26,7 +25,6 @@ namespace EStoreBackend.Application.Features.Commands.Review.CreateReview
             {
                 ReviewerName = request.ReviewerName,
                 ReviewComment = request.ReviewComment,
-                ReviewImagePath = _fileHelper.Upload(request.FormFile,PathConstants.ImagesReviewAddPath),
                 ReviewTitle = request.ReviewTitle,
             }) ;
             await _reviewWriteRepository.SaveAsync();

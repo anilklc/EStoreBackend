@@ -13,12 +13,10 @@ namespace EStoreBackend.Application.Features.Commands.Slider.CreateSlider
     public class CreateSliderCommandHandler : IRequestHandler<CreateSliderCommandRequest, CreateSliderCommandResponse>
     {
         private readonly ISliderWriteRepository _sliderWriteRepository;
-        private readonly IFileHelper _fileHelper;
 
-        public CreateSliderCommandHandler(ISliderWriteRepository sliderWriteRepository, IFileHelper fileHelper)
+        public CreateSliderCommandHandler(ISliderWriteRepository sliderWriteRepository)
         {
             _sliderWriteRepository = sliderWriteRepository;
-            _fileHelper = fileHelper;
         }
 
         public async Task<CreateSliderCommandResponse> Handle(CreateSliderCommandRequest request, CancellationToken cancellationToken)
@@ -27,7 +25,6 @@ namespace EStoreBackend.Application.Features.Commands.Slider.CreateSlider
             {
                 SliderTitle = request.SliderTitle,
                 SliderSubtitle = request.SliderSubtitle,
-                SliderImagePath = _fileHelper.Upload(request.FormFile, PathConstants.ImagesReviewAddPath),
                 SliderTargetUrl = request.SliderTargetUrl,
                 SliderActive = request.SliderActive,
             });

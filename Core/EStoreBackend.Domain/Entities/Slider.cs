@@ -11,7 +11,7 @@ namespace EStoreBackend.Domain.Entities
     {
         public string SliderTitle { get; set; }
         public string SliderSubtitle { get; set; }
-        public string? SliderImagePath { get; set; }
+        public ICollection<SliderImage> SliderImages { get; set; }
         public string SliderTargetUrl { get; set; }
         public bool SliderActive { get; set; }
     }

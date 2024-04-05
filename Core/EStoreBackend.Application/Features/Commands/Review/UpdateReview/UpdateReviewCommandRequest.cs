@@ -9,6 +9,5 @@ namespace EStoreBackend.Application.Features.Commands.Review.UpdateReview
         public string ReviewerName { get; set; }
         public string ReviewTitle { get; set; }
         public string ReviewComment { get; set; }
-        public IFormFile? FormFile { get; set; }
     }
 }

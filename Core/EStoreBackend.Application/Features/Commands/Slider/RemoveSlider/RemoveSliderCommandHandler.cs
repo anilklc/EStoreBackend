@@ -12,22 +12,29 @@ namespace EStoreBackend.Application.Features.Commands.Slider.RemoveSlider
 {
     public class RemoveSliderCommandHandler : IRequestHandler<RemoveSliderCommandRequest, RemoveSliderCommandResponse>
     {
-        private readonly ISliderReadRepository _sliderReadRepository;
         private readonly ISliderWriteRepository _sliderWriteRepository;
+        private readonly ISliderImageReadRepository _sliderImageReadRepository;
+        private readonly ISliderImageWriteRepository _sliderImageWriteRepository;
         private readonly IFileHelper _fileHelper;
 
-        public RemoveSliderCommandHandler(ISliderReadRepository sliderReadRepository, ISliderWriteRepository sliderWriteRepository, IFileHelper fileHelper)
+        public RemoveSliderCommandHandler(ISliderWriteRepository sliderWriteRepository, ISliderImageReadRepository sliderImageReadRepository, ISliderImageWriteRepository sliderImageWriteRepository, IFileHelper fileHelper)
         {
-            _sliderReadRepository = sliderReadRepository;
             _sliderWriteRepository = sliderWriteRepository;
+            _sliderImageReadRepository = sliderImageReadRepository;
+            _sliderImageWriteRepository = sliderImageWriteRepository;
             _fileHelper = fileHelper;
         }
 
         public async Task<RemoveSliderCommandResponse> Handle(RemoveSliderCommandRequest request, CancellationToken cancellationToken)
         {
-            var slider = await _sliderReadRepository.GetByIdAsync(request.Id);
-            _fileHelper.Delete(Path.Combine(PathConstants.ImagesSliderAddPath, slider.SliderImagePath));
             await _sliderWriteRepository.RemoveAsync(request.Id);
+            var images = _sliderImageReadRepository.GetWhere(s => s.SliderId == Guid.Parse(request.Id)).ToList();
+            foreach (var item in images)
+            {
+                _fileHelper.Delete(PathConstants.ImagesSliderAddPath + item.ImagePath);
+                await _sliderImageWriteRepository.RemoveAsync(item.Id.ToString());
+            }
+            await _sliderImageWriteRepository.SaveAsync();
             await _sliderWriteRepository.SaveAsync();
             return new();
         }

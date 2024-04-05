@@ -15,13 +15,11 @@ namespace EStoreBackend.Application.Features.Commands.Slider.UpdateSlider
     {
         private readonly ISliderReadRepository _sliderReadRepository;
         private readonly ISliderWriteRepository _sliderWriteRepository;
-        private readonly IFileHelper _fileHelper;
 
-        public UpdateSliderCommandHandler(ISliderReadRepository sliderReadRepository, ISliderWriteRepository sliderWriteRepository, IFileHelper fileHelper)
+        public UpdateSliderCommandHandler(ISliderReadRepository sliderReadRepository, ISliderWriteRepository sliderWriteRepository)
         {
             _sliderReadRepository = sliderReadRepository;
             _sliderWriteRepository = sliderWriteRepository;
-            _fileHelper = fileHelper;
         }
 
         public async Task<UpdateSliderCommandResponse> Handle(UpdateSliderCommandRequest request, CancellationToken cancellationToken)
@@ -30,11 +28,6 @@ namespace EStoreBackend.Application.Features.Commands.Slider.UpdateSlider
             slider.SliderTitle = request.SliderTitle;
             slider.SliderSubtitle = request.SliderSubtitle;
             slider.SliderTargetUrl = request.SliderTargetUrl;
-            if (request.FormFile != null)
-            {
-                slider.SliderImagePath = _fileHelper.Update(request.FormFile, PathConstants.ImagesSliderAddPath + slider.SliderImagePath, PathConstants.ImagesSliderAddPath);
-
-            }
             slider.SliderActive = request.SliderActive;
             await _sliderWriteRepository.SaveAsync();
             return new();

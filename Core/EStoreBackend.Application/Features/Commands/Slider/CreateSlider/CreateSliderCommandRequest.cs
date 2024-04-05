@@ -7,9 +7,7 @@ namespace EStoreBackend.Application.Features.Commands.Slider.CreateSlider
     {
         public string SliderTitle { get; set; }
         public string SliderSubtitle { get; set; }
-        public string? SliderImagePath { get; set; }
         public string SliderTargetUrl { get; set; }
         public bool SliderActive { get; set; }
-        public IFormFile FormFile { get; set; }
     }
 }

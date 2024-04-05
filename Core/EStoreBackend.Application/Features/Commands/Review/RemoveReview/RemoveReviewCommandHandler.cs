@@ -14,21 +14,28 @@ namespace EStoreBackend.Application.Features.Commands.Review.RemoveReview
     public class RemoveReviewCommandHandler : IRequestHandler<RemoveReviewCommandRequest, RemoveReviewCommandResponse>
     {
         private readonly IReviewWriteRepository _reviewWriteRepository;
-        private readonly IReviewReadRepository _reviewReadRepository;
+        private readonly IReviewImageReadRepository _reviewImageReadRepository;
+        private readonly IReviewImageWriteRepository _reviewImageWriteRepository;
         private readonly IFileHelper _fileHelper;
 
-        public RemoveReviewCommandHandler(IReviewWriteRepository reviewWriteRepository, IReviewReadRepository reviewReadRepository, IFileHelper fileHelper)
+        public RemoveReviewCommandHandler(IReviewWriteRepository reviewWriteRepository, IReviewImageReadRepository reviewImageReadRepository, IReviewImageWriteRepository reviewImageWriteRepository, IFileHelper fileHelper)
         {
             _reviewWriteRepository = reviewWriteRepository;
-            _reviewReadRepository = reviewReadRepository;
+            _reviewImageReadRepository = reviewImageReadRepository;
+            _reviewImageWriteRepository = reviewImageWriteRepository;
             _fileHelper = fileHelper;
         }
 
         public async Task<RemoveReviewCommandResponse> Handle(RemoveReviewCommandRequest request, CancellationToken cancellationToken)
         {
-            var review = await _reviewReadRepository.GetByIdAsync(request.Id);
-            _fileHelper.Delete(Path.Combine(PathConstants.ImagesReviewAddPath, review.ReviewImagePath));
             await _reviewWriteRepository.RemoveAsync(request.Id);
+            var images = _reviewImageReadRepository.GetWhere(r => r.ReviewId == Guid.Parse(request.Id)).ToList();
+            foreach (var item in images)
+            {
+                _fileHelper.Delete(PathConstants.ImagesReviewAddPath + item.ImagePath);
+                await _reviewImageWriteRepository.RemoveAsync(item.Id.ToString());
+            }
+            await _reviewImageWriteRepository.SaveAsync();
             await _reviewWriteRepository.SaveAsync();
             return new();
         }

@@ -15,13 +15,11 @@ namespace EStoreBackend.Application.Features.Commands.Review.UpdateReview
     {
         private readonly IReviewWriteRepository _reviewWriteRepository;
         private readonly IReviewReadRepository _reviewReadRepository;
-        private readonly IFileHelper _fileHelper;
 
-        public UpdateReviewCommandHandler(IReviewWriteRepository reviewWriteRepository, IReviewReadRepository reviewReadRepository, IFileHelper fileHelper)
+        public UpdateReviewCommandHandler(IReviewWriteRepository reviewWriteRepository, IReviewReadRepository reviewReadRepository)
         {
             _reviewWriteRepository = reviewWriteRepository;
             _reviewReadRepository = reviewReadRepository;
-            _fileHelper = fileHelper;
         }
 
         public async Task<UpdateReviewCommandResponse> Handle(UpdateReviewCommandRequest request, CancellationToken cancellationToken)
@@ -30,11 +28,6 @@ namespace EStoreBackend.Application.Features.Commands.Review.UpdateReview
             review.ReviewerName = request.ReviewerName;
             review.ReviewComment = request.ReviewComment;
             review.ReviewTitle = request.ReviewTitle;
-            if (request.FormFile!=null) {
-
-                review.ReviewImagePath = _fileHelper.Update(request.FormFile, PathConstants.ImagesReviewAddPath + review.ReviewImagePath, PathConstants.ImagesReviewAddPath);
-                
-             }
             await _reviewWriteRepository.SaveAsync();
             return new();
         }
