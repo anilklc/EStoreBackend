@@ -1,7 +1,6 @@
 ﻿using EStoreBackend.Application.Features.Commands.ReviewImage.CreateReviewImage;
 using EStoreBackend.Application.Features.Commands.ReviewImage.RemoveReviewImage;
 using EStoreBackend.Application.Features.Commands.ReviewImage.UpdateReviewImage;
-using EStoreBackend.Application.Features.Queries.Review.GetAllReviewWithReviewImage;
 using EStoreBackend.Application.Features.Queries.ReviewImage.GetReviewImageById;
 using EStoreBackend.Application.Features.Queries.ReviewImage.GetReviewImageByReviewId;
 using MediatR;
@@ -36,13 +35,7 @@ namespace EStoreBackend.API.Controllers
         }
 
 
-        [HttpGet("[action]")]
-        public async Task<IActionResult> GetAllReviewWithReviewImage()
-        {
-            GetAllReviewWithReviewImageQueryResponse response = await _mediator.Send(new GetAllReviewWithReviewImageQueryRequest());
-            return Ok(response);
-        }
-
+       
         [HttpPost("[action]")]
         public async Task<IActionResult> CreateReviewImage(IFormFile formFile, string ReviewId)
         {

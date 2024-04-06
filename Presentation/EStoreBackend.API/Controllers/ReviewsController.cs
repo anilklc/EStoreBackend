@@ -2,6 +2,7 @@
 using EStoreBackend.Application.Features.Commands.Review.RemoveReview;
 using EStoreBackend.Application.Features.Commands.Review.UpdateReview;
 using EStoreBackend.Application.Features.Queries.Review.GetAllReview;
+using EStoreBackend.Application.Features.Queries.Review.GetAllReviewWithReviewImage;
 using EStoreBackend.Application.Features.Queries.Review.GetByIdReview;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -32,6 +33,14 @@ namespace EStoreBackend.API.Controllers
             GetByIdReviewQueryResponse response = await _mediator.Send(request);
             return Ok(response);
         }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetAllReviewWithReviewImage()
+        {
+            GetAllReviewWithReviewImageQueryResponse response = await _mediator.Send(new GetAllReviewWithReviewImageQueryRequest());
+            return Ok(response);
+        }
+
 
         [HttpPost("[action]")]
         public async Task<IActionResult> CreateReview([FromBody] CreateReviewCommandRequest request)
