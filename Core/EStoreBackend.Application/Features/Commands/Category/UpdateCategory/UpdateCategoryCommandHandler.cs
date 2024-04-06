@@ -22,7 +22,7 @@ namespace EStoreBackend.Application.Features.Commands.Category.UpdateCategory
         public async Task<UpdateCategoryCommandResponse> Handle(UpdateCategoryCommandRequest request, CancellationToken cancellationToken)
         {
             var category = await _categoryReadRepository.GetByIdAsync(request.Id);
-            category.CategoryDescription=request.CategoryDescription;
+            category.CategoryHrefUrl = request.CategoryHrefUrl;
             category.CategoryName=request.CategoryName;
             category.CategoryIcon=request.CategoryIcon;
             await _categoryWriteRepository.SaveAsync();

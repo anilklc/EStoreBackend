@@ -2,6 +2,7 @@
 using EStoreBackend.Application.Features.Commands.Category.RemoveCategory;
 using EStoreBackend.Application.Features.Commands.Category.UpdateCategory;
 using EStoreBackend.Application.Features.Queries.Category.GetAllCategory;
+using EStoreBackend.Application.Features.Queries.Category.GetAllPopularCategory;
 using EStoreBackend.Application.Features.Queries.Category.GetByIdCategory;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -30,6 +31,13 @@ namespace EStoreBackend.API.Controllers
         public async Task<IActionResult> GetByIdCategory([FromRoute] GetByIdCategoryQueryRequest request)
         {
             GetByIdCategoryQueryResponse response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetAllPopularCategory()
+        {
+            GetAllPopularCategoryQueryResponse response = await _mediator.Send(new GetAllPopularCategoryQueryRequest());
             return Ok(response);
         }
 

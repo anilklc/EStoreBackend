@@ -22,7 +22,7 @@ namespace EStoreBackend.Application.Features.Commands.Category.CreateCategory
             await _categoryWriteRepository.AddAsync(new()
             {
                 CategoryName = request.CategoryName,
-                CategoryDescription = request.CategoryDescription,
+                CategoryHrefUrl = request.CategoryHrefUrl,
                 CategoryIcon = request.CategoryIcon
             });
             await _categoryWriteRepository.SaveAsync();
