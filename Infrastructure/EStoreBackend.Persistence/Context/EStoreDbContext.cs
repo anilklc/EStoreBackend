@@ -26,7 +26,11 @@ namespace EStoreBackend.Persistence.Context
         public DbSet<BrandImage> BrandImages { get; set; }
         public DbSet<SocialMedia> SocialMedias { get; set; }
         public DbSet<Announcement> Announcements { get; set; }
-
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ProductImage> ProductImages { get; set; }
+        public DbSet<Stock> Stocks { get; set; }
+        public DbSet<Newsletter> Newsletters { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
