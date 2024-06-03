@@ -14,5 +14,7 @@ namespace EStoreBackend.Application.Constants
         public static string ImagesReviewAddPath = "wwwroot\\Uploads\\ReviewImages\\";
         public static string ImagesSliderPath = "Uploads/SliderImages/";
         public static string ImagesSliderAddPath = "wwwroot\\Uploads\\SliderImages\\";
+        public static string ImagesProductCoverAddPath = "wwwroot\\Uploads\\ProductCoverImages\\";
+        public static string ImagesProductCoverPath = "Uploads/ProductCoverImages/";
     }
 }

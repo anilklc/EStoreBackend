@@ -13,6 +13,7 @@ namespace EStoreBackend.Domain.Entities
         public string ProductName { get; set; }
         public string ProductDescription { get; set; }
         public float Price { get; set; }
+        public string ProductCoverImagePath { get; set; }
 
         [ForeignKey("Category")]
         public Guid CategoryId { get; set; }
