@@ -29,7 +29,6 @@ namespace EStoreBackend.Application.Features.Commands.Prdouct.CreateProduct
                 Price = request.Price,
                 BrandId = request.BrandId,
                 CategoryId = request.CategoryId,
-                StockId = request.StockId,
                 ProductCoverImagePath = _fileHelper.Upload(request.FormFile,PathConstants.ImagesProductCoverAddPath),
             });
             await _productWriteRepository.SaveAsync();

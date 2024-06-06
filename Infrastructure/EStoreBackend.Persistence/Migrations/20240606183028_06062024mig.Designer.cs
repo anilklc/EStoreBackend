@@ -4,6 +4,7 @@ using EStoreBackend.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EStoreBackend.Persistence.Migrations
 {
     [DbContext(typeof(EStoreDbContext))]
-    partial class EStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240606183028_06062024mig")]
+    partial class _06062024mig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -79,7 +82,12 @@ namespace EStoreBackend.Persistence.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Brands");
                 });
@@ -128,7 +136,12 @@ namespace EStoreBackend.Persistence.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Categories");
                 });
@@ -297,10 +310,6 @@ namespace EStoreBackend.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BrandId");
-
-                    b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
                 });
@@ -481,6 +490,13 @@ namespace EStoreBackend.Persistence.Migrations
                     b.ToTable("Stocks");
                 });
 
+            modelBuilder.Entity("EStoreBackend.Domain.Entities.Brand", b =>
+                {
+                    b.HasOne("EStoreBackend.Domain.Entities.Product", null)
+                        .WithMany("Brands")
+                        .HasForeignKey("ProductId");
+                });
+
             modelBuilder.Entity("EStoreBackend.Domain.Entities.BrandImage", b =>
                 {
                     b.HasOne("EStoreBackend.Domain.Entities.Brand", "Brand")
@@ -492,23 +508,11 @@ namespace EStoreBackend.Persistence.Migrations
                     b.Navigation("Brand");
                 });
 
-            modelBuilder.Entity("EStoreBackend.Domain.Entities.Product", b =>
+            modelBuilder.Entity("EStoreBackend.Domain.Entities.Category", b =>
                 {
-                    b.HasOne("EStoreBackend.Domain.Entities.Brand", "Brand")
-                        .WithMany()
-                        .HasForeignKey("BrandId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("EStoreBackend.Domain.Entities.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Brand");
-
-                    b.Navigation("Category");
+                    b.HasOne("EStoreBackend.Domain.Entities.Product", null)
+                        .WithMany("Categories")
+                        .HasForeignKey("ProductId");
                 });
 
             modelBuilder.Entity("EStoreBackend.Domain.Entities.ProductImage", b =>
@@ -560,6 +564,10 @@ namespace EStoreBackend.Persistence.Migrations
 
             modelBuilder.Entity("EStoreBackend.Domain.Entities.Product", b =>
                 {
+                    b.Navigation("Brands");
+
+                    b.Navigation("Categories");
+
                     b.Navigation("ProductImages");
 
                     b.Navigation("Stocks");

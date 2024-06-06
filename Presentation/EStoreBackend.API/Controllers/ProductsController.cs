@@ -1,5 +1,6 @@
 ﻿using EStoreBackend.Application.Features.Commands.Prdouct.CreateProduct;
 using EStoreBackend.Application.Features.Queries.Product.GetAllProduct;
+using EStoreBackend.Application.Features.Queries.Product.GetAllProductAdmin;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,11 +19,19 @@ namespace EStoreBackend.API.Controllers
         }
 
         [HttpGet("[action]")]
-        public async Task<IActionResult> GetAllProduct() 
+        public async Task<IActionResult> GetAllProducts() 
         {
             GetAllProductQueryResponse response = await _mediator.Send(new GetAllProductQueryRequest());
             return Ok(response);
         
+        }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetAllProductsAdmin()
+        {
+            GetAllProductAdminQueryResponse response = await _mediator.Send(new GetAllProductAdminQueryRequest());
+            return Ok(response);
+
         }
 
         [HttpPost("[action]")]

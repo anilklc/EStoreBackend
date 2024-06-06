@@ -1,24 +1,23 @@
-﻿using EStoreBackend.Domain.Common;
+﻿using EStoreBackend.Domain.Entities;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EStoreBackend.Domain.Entities
+namespace EStoreBackend.Application.DTOs.Product
 {
-    public class Product : BaseEntity
+    public class GetAllProductAdminDto
     {
+        public string Id { get; set; }
         public string ProductName { get; set; }
         public string ProductDescription { get; set; }
         public float Price { get; set; }
         public string ProductCoverImagePath { get; set; }
         public Guid CategoryId { get; set; }
+        public string CategoryName { get; set; }
         public Guid BrandId { get; set; }
-        public ICollection<ProductImage> ProductImages { get; set; }
-        public ICollection<Stock> Stocks { get; set; }
-        public Brand Brand { get; set; }
-        public Category Category { get; set; }
+        public string BrandName { get; set; }
+
     }
 }
