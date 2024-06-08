@@ -1,17 +1,14 @@
-﻿using EStoreBackend.Domain.Entities;
+﻿using MediatR;
 
-namespace EStoreBackend.Application.Features.Queries.Product.GetByIdProduct
+namespace EStoreBackend.Application.Features.Commands.Prdouct.UpdateProduct
 {
-    public class GetByIdProductQueryResponse
+    public class UpdateProductCommandRequest : IRequest<UpdateProductCommandResponse>
     {
         public string Id { get; set; }
         public string ProductName { get; set; }
         public string ProductDescription { get; set; }
         public float Price { get; set; }
-        public string ProductCoverImagePath { get; set; }
         public Guid CategoryId { get; set; }
         public Guid BrandId { get; set; }
-       
-       
     }
 }
