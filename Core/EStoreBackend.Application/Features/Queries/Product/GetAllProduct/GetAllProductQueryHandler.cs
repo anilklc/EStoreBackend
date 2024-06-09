@@ -27,7 +27,9 @@ namespace EStoreBackend.Application.Features.Queries.Product.GetAllProduct
         public async Task<GetAllProductQueryResponse> Handle(GetAllProductQueryRequest request, CancellationToken cancellationToken)
         {
             string baseUrl = $"{_contextAccessor.HttpContext.Request.Scheme}://{_contextAccessor.HttpContext.Request.Host}";
-            var products = await _productReadRepository.GetAll(false).ToListAsync();
+            var totalCount = await _productReadRepository.GetAll(false).CountAsync();
+            var totalPages = (int)Math.Ceiling(totalCount / (double)request.Size);
+            var products = await _productReadRepository.GetAll(false).Skip(request.Page * request.Size).Take(request.Size).ToListAsync();
             var productList = products.Select(p => new GetAllProductDto()
             {
                 Id = p.Id.ToString(),
@@ -38,7 +40,9 @@ namespace EStoreBackend.Application.Features.Queries.Product.GetAllProduct
 
             return new()
             {
-                Products = productList
+                Products = productList,
+                CurrentPage = request.Page,
+                TotalPages = totalPages
             };
         }
     }

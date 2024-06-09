@@ -23,9 +23,9 @@ namespace EStoreBackend.API.Controllers
         }
 
         [HttpGet("[action]")]
-        public async Task<IActionResult> GetAllProducts() 
+        public async Task<IActionResult> GetAllProducts([FromQuery] GetAllProductQueryRequest request) 
         {
-            GetAllProductQueryResponse response = await _mediator.Send(new GetAllProductQueryRequest());
+            GetAllProductQueryResponse response = await _mediator.Send(request);
             return Ok(response);
         
         }
