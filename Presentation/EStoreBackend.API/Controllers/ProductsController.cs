@@ -5,6 +5,7 @@ using EStoreBackend.Application.Features.Commands.Prdouct.UpdateProductCoverImag
 using EStoreBackend.Application.Features.Queries.Product.GetAllProduct;
 using EStoreBackend.Application.Features.Queries.Product.GetAllProductAdmin;
 using EStoreBackend.Application.Features.Queries.Product.GetByIdProduct;
+using EStoreBackend.Application.Features.Queries.Product.GetProductDetail;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -43,6 +44,14 @@ namespace EStoreBackend.API.Controllers
         {
             GetByIdProductQueryResponse response = await _mediator.Send(request);
             return Ok(response);
+        }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetProductDetail([FromQuery] GetProductDetailQueryRequest request)
+        {
+            GetProductDetailQueryRespnose response = await _mediator.Send(request);
+            return Ok(response);
+
         }
 
         [HttpPost("[action]")]
