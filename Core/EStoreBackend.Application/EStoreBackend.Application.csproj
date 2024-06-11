@@ -21,9 +21,4 @@
     <ProjectReference Include="..\EStoreBackend.Domain\EStoreBackend.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\Commands\Stock\" />
-    <Folder Include="Features\Queries\Stock\GetAllStockByIdProduct\" />
-  </ItemGroup>
-
 </Project>
