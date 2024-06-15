@@ -24,7 +24,6 @@ namespace EStoreBackend.Application.Features.Queries.Category.GetByIdCategory
             {
                 Id = request.Id,
                 CategoryName = categories.CategoryName,
-                CategoryHrefUrl = categories.CategoryHrefUrl,
                 CategoryIcon = categories.CategoryIcon,
             };
         }
