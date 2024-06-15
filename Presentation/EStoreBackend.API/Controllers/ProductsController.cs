@@ -4,6 +4,7 @@ using EStoreBackend.Application.Features.Commands.Prdouct.UpdateProduct;
 using EStoreBackend.Application.Features.Commands.Prdouct.UpdateProductCoverImage;
 using EStoreBackend.Application.Features.Queries.Product.GetAllProduct;
 using EStoreBackend.Application.Features.Queries.Product.GetAllProductAdmin;
+using EStoreBackend.Application.Features.Queries.Product.GetAllProductByFilter;
 using EStoreBackend.Application.Features.Queries.Product.GetByIdProduct;
 using EStoreBackend.Application.Features.Queries.Product.GetProductDetail;
 using MediatR;
@@ -29,6 +30,14 @@ namespace EStoreBackend.API.Controllers
             GetAllProductQueryResponse response = await _mediator.Send(request);
             return Ok(response);
         
+        }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetAllProductsByFilter([FromQuery] GetAllProductByFilterQueryRequest request)
+        {
+            GetAllProductByFilterQueryResponse response = await _mediator.Send(request);
+            return Ok(response);
+
         }
 
         [HttpGet("[action]")]
