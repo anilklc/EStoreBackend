@@ -35,10 +35,11 @@ namespace EStoreBackend.Application.Features.Queries.Product.GetProductDetail
                 Id = p.Id.ToString(),
                 ProductName = p.ProductName,
                 ProductDescription = p.ProductDescription,
+                ProductCoverImage = $"{baseUrl}/{PathConstants.ImagesProductCoverPath}{p.ProductCoverImagePath}",
                 Price = p.Price,
                 ProductImages = p.ProductImages.Select(pi => new ProductImageDto
                 {
-                    Id=pi.Id.ToString(),
+                    Id = pi.Id.ToString(),
                     ImagePath = $"{baseUrl}/{PathConstants.ImagesProductPath}{pi.ImagePath}",
                 }).ToList(),
                 Stock = p.Stocks.Select(s => new StockDto

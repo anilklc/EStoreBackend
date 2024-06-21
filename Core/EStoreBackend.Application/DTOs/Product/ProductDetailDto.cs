@@ -14,6 +14,7 @@ namespace EStoreBackend.Application.DTOs.Product
         public string ProductName { get; set; }
         public string ProductDescription { get; set; }
         public float Price { get; set; }
+        public string ProductCoverImage { get; set; }
         public List<ProductImageDto> ProductImages { get; set; }
         public List<StockDto> Stock { get; set; }
     }
