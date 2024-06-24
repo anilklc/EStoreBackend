@@ -1,5 +1,7 @@
 ﻿using EStoreBackend.Domain.Common;
 using EStoreBackend.Domain.Entities;
+using EStoreBackend.Domain.Entities.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace EStoreBackend.Persistence.Context
 {
-    public class EStoreDbContext : DbContext
+    public class EStoreDbContext : IdentityDbContext<AppUser,AppRole,Guid>
     {
         public EStoreDbContext(DbContextOptions options) : base(options)
         {
