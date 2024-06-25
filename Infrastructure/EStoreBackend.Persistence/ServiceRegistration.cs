@@ -1,7 +1,9 @@
 ﻿using EStoreBackend.Application.Interfaces.Repositories;
+using EStoreBackend.Application.Interfaces.Services;
 using EStoreBackend.Domain.Entities.Identity;
 using EStoreBackend.Persistence.Context;
 using EStoreBackend.Persistence.Repositories;
+using EStoreBackend.Persistence.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -20,7 +22,7 @@ namespace EStoreBackend.Persistence
         public static void AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<EStoreDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("sqlConnection")));
-            services.AddIdentityCore<AppUser>(opt =>
+            services.AddIdentity<AppUser,AppRole>(opt =>
             {
                 opt.Password.RequiredLength = 3;
                 opt.Password.RequireNonAlphanumeric = false;
@@ -28,6 +30,8 @@ namespace EStoreBackend.Persistence
                 opt.Password.RequireLowercase = false;
                 opt.Password.RequireUppercase = false;
             }).AddRoles<AppRole>().AddEntityFrameworkStores<EStoreDbContext>().AddTokenProvider<DataProtectorTokenProvider<AppUser>>(TokenOptions.DefaultProvider);
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IAboutReadRepository,AboutReadRepository>();
             services.AddScoped<IAboutWriteRepository,AboutWriteRepository>();
             services.AddScoped<IBrandReadRepository,BrandReadRepository>();
@@ -60,6 +64,7 @@ namespace EStoreBackend.Persistence
             services.AddScoped<IProductImageWriteRepository,ProductImageWriteRepository>();
             services.AddScoped<IStockReadRepository,StockReadRepository>();
             services.AddScoped<IStockWriteRepository, StockWriteRepository>();
+           
         }
     }
 }
