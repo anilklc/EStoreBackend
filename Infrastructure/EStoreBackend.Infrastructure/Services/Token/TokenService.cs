@@ -22,20 +22,28 @@ namespace EStoreBackend.Infrastructure.Services.Token
             _configuration = configuration;
         }
 
-        public Application.DTOs.Token.Token CreateToken(AppUser user)
+        public Application.DTOs.Token.Token CreateToken(AppUser user, IList<string> roles)
         {
             Application.DTOs.Token.Token token = new();
             SymmetricSecurityKey securityKey = new(Encoding.UTF8.GetBytes(_configuration["Token:Secret"]));
             SigningCredentials signingCredentials = new(securityKey, SecurityAlgorithms.HmacSha256);
 
             token.Expiration = DateTime.Now.AddMinutes(60);
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, user.UserName)
+            };
+            foreach (var role in roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
             JwtSecurityToken tokenJwt = new(
                 audience: _configuration["Token:Audience"],
                 issuer: _configuration["Token:Issuer"],
                 expires: token.Expiration,
                 notBefore: DateTime.UtcNow,
                 signingCredentials: signingCredentials,
-                claims: new List<Claim> { new(ClaimTypes.Name, user.UserName) }
+                claims: claims
                 );
 
             JwtSecurityTokenHandler tokenHandler = new();

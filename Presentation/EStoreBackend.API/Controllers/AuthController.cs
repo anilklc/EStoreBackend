@@ -18,7 +18,7 @@ namespace EStoreBackend.API.Controllers
             _mediator = mediator;
         }
         [HttpPost("[action]")]
-        public async Task<IActionResult> Login(LoginUserCommandRequest loginUserCommandRequest)
+        public async Task<IActionResult> Login([FromBody] LoginUserCommandRequest loginUserCommandRequest)
         {
             LoginUserCommandResponse response = await _mediator.Send(loginUserCommandRequest);
             return Ok(response);

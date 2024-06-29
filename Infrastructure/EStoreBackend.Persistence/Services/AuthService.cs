@@ -41,7 +41,8 @@ namespace EStoreBackend.Persistence.Services
             SignInResult result = await _signInManager.CheckPasswordSignInAsync(user, password, false);
             if (result.Succeeded)
             {
-                Token token = _tokenService.CreateToken(user);
+                var roles = await _userManager.GetRolesAsync(user);
+                Token token = _tokenService.CreateToken(user , roles);
                 await _userService.UpdateRefreshTokenAsync(token.RefreshToken, user, token.Expiration, 15);
                 return token;
 
@@ -55,7 +56,8 @@ namespace EStoreBackend.Persistence.Services
             AppUser? user = _userManager.Users.FirstOrDefault(u => u.RefreshToken == refreshToken);
             if (user != null && user.RefreshTokenEndDate > DateTime.UtcNow)
             {
-                Token token = _tokenService.CreateToken(user);
+                var roles = await _userManager.GetRolesAsync(user);
+                Token token = _tokenService.CreateToken(user, roles);
                 await _userService.UpdateRefreshTokenAsync(token.RefreshToken, user, token.Expiration, 15);
                 return token;
             }

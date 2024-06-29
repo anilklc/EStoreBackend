@@ -5,6 +5,7 @@ using EStoreBackend.Application.Features.Queries.Category.GetAllCategory;
 using EStoreBackend.Application.Features.Queries.Category.GetAllPopularCategory;
 using EStoreBackend.Application.Features.Queries.Category.GetByIdCategory;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,6 +21,8 @@ namespace EStoreBackend.API.Controllers
         {
             _mediator = mediator;
         }
+
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "AdminOnly")]
         [HttpGet("[action]")]
         public async Task<IActionResult> GetAllCategories()
         {

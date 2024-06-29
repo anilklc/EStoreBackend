@@ -10,7 +10,7 @@ namespace EStoreBackend.Application.Interfaces
 {
     public interface ITokenService
     {
-        Token CreateToken(AppUser user);
+        Token CreateToken(AppUser user,IList<string> roles);
         string GenerateRefreshToken();
     }
 }
