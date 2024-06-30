@@ -1,4 +1,5 @@
-﻿using EStoreBackend.Application.Features.Commands.User.LoginUser;
+﻿using EStoreBackend.Application.Features.Commands.User.LoginAdmin;
+using EStoreBackend.Application.Features.Commands.User.LoginUser;
 using EStoreBackend.Application.Features.Commands.User.PasswordReset;
 using EStoreBackend.Application.Features.Commands.User.RefreshTokenLogin;
 using EStoreBackend.Application.Features.Commands.User.VerifyResetToken;
@@ -21,6 +22,13 @@ namespace EStoreBackend.API.Controllers
         public async Task<IActionResult> Login([FromBody] LoginUserCommandRequest loginUserCommandRequest)
         {
             LoginUserCommandResponse response = await _mediator.Send(loginUserCommandRequest);
+            return Ok(response);
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> LoginAdmin([FromBody] LoginAdminCommandRequest loginAdminCommandRequest)
+        {
+            LoginAdminCommandResponse response = await _mediator.Send(loginAdminCommandRequest);
             return Ok(response);
         }
 

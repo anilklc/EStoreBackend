@@ -22,13 +22,14 @@ namespace EStoreBackend.API.Controllers
             _mediator = mediator;
         }
 
-        [Authorize(AuthenticationSchemes = "Admin", Policy = "AdminOnly")]
         [HttpGet("[action]")]
         public async Task<IActionResult> GetAllCategories()
         {
             GetAllCategoryQueryResponse response = await _mediator.Send(new GetAllCategoryQueryRequest());
             return Ok(response);
         }
+
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "AdminOnly")]
 
         [HttpGet("[action]/{Id}")]
         public async Task<IActionResult> GetByIdCategory([FromRoute] GetByIdCategoryQueryRequest request)
@@ -44,6 +45,7 @@ namespace EStoreBackend.API.Controllers
             return Ok(response);
         }
 
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "AdminOnly")]
         [HttpPost("[action]")]
         public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryCommandRequest request)
         {
@@ -51,6 +53,7 @@ namespace EStoreBackend.API.Controllers
             return Ok(response);
         }
 
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "AdminOnly")]
         [HttpPut("[action]")]
         public async Task<IActionResult> UpdateCategory([FromBody] UpdateCategoryCommandRequest request)
         {
@@ -58,6 +61,7 @@ namespace EStoreBackend.API.Controllers
             return Ok(response);
         }
 
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "AdminOnly")]
         [HttpDelete("[action]/{Id}")]
         public async Task<IActionResult> RemoveCategory(string Id)
         {

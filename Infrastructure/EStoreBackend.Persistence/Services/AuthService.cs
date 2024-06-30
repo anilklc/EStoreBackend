@@ -51,6 +51,13 @@ namespace EStoreBackend.Persistence.Services
             throw new AuthenticationErrorException();
         }
 
+        public async Task<IList<string>> RoleControl(string email)
+        {
+            AppUser? user = await _userManager.FindByEmailAsync(email);
+            var roleControl = await _userManager.GetRolesAsync(user);
+            return roleControl;
+        }
+
         public async Task<Token> RefreshTokenLoginAsync(string refreshToken)
         {
             AppUser? user = _userManager.Users.FirstOrDefault(u => u.RefreshToken == refreshToken);

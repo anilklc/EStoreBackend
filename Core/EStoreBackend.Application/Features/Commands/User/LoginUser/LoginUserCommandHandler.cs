@@ -19,11 +19,24 @@ namespace EStoreBackend.Application.Features.Commands.User.LoginUser
 
         public async Task<LoginUserCommandResponse> Handle(LoginUserCommandRequest request, CancellationToken cancellationToken)
         {
-            var token = await _authService.LoginAsync(request.Email, request.Password);
-            return new LoginUserSuccessCommandResponse()
+            var roleController = await _authService.RoleControl(request.Email);
+            if (roleController.Any(r => r == "User"))
             {
-                Token = token,
-            };
+
+                var token = await _authService.LoginAsync(request.Email, request.Password);
+                return new LoginUserSuccessCommandResponse()
+                {
+                    Token = token,
+                };
+            }
+
+            else
+            {
+                return new LoginUserErrorCommandResponse()
+                {
+                    Message = "unauthorized area entry"
+                };
+            }
         }
     }
 }
