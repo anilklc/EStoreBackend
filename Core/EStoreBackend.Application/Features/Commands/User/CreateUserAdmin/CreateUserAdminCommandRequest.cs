@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
 
-namespace EStoreBackend.Application.DTOs.User
+namespace EStoreBackend.Application.Features.Commands.User.CreateUserAdmin
 {
-    public class CreateUser
+    public class CreateUserAdminCommandRequest : IRequest<CreateUserAdminCommandResponse>
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -15,6 +11,6 @@ namespace EStoreBackend.Application.DTOs.User
         public string Phone { get; set; }
         public string Password { get; set; }
         public string PasswordConfirm { get; set; }
-
+        public string UserRole { get; set; } = "User";
     }
 }

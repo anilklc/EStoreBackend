@@ -35,12 +35,20 @@ namespace EStoreBackend.Persistence.Services
             }, user.Password);
             CreateUserResponse response = new() { Succeeded = result.Succeeded };
 
-            if (result.Succeeded)
+            if (result.Succeeded) 
                 response.Message = "Kullanıcı başarıyla oluşturulmuştur.";
+
             else
                 foreach (var error in result.Errors)
                     response.Message += $"{error.Code} - {error.Description}\n";
             return response;
+        }
+
+        public async Task<bool> AddRole(string email,string userRole)
+        {
+            AppUser? user = await _userManager.FindByEmailAsync(email);
+            await _userManager.AddToRoleAsync(user,userRole);
+            return true;
         }
 
         public async Task UpdateRefreshTokenAsync(string refreshToken, AppUser user, DateTime tokenDate, int refreshTokenTime)

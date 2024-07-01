@@ -1,4 +1,5 @@
 ﻿using EStoreBackend.Application.Features.Commands.User.CreateUser;
+using EStoreBackend.Application.Features.Commands.User.CreateUserAdmin;
 using EStoreBackend.Application.Features.Commands.User.UpdatePassword;
 using EStoreBackend.Application.Features.Queries.User;
 using MediatR;
@@ -20,6 +21,13 @@ namespace EStoreBackend.API.Controllers
         public async Task<IActionResult> CreateUser(CreateUserCommandRequest createUserCommandRequest)
         {
             CreateUserCommandResponse response = await _mediator.Send(createUserCommandRequest);
+            return Ok(response);
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> CreateUserAdmin(CreateUserAdminCommandRequest createUserAdminCommandRequest)
+        {
+            CreateUserAdminCommandResponse response = await _mediator.Send(createUserAdminCommandRequest);
             return Ok(response);
         }
 

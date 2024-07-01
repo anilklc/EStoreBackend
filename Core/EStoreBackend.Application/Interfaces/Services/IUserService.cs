@@ -11,6 +11,7 @@ namespace EStoreBackend.Application.Interfaces.Services
     public interface IUserService
     {
         Task<CreateUserResponse> CreateAsync(CreateUser user);
+        Task<bool> AddRole(string email,string UserRole);
         Task UpdateRefreshTokenAsync(string refreshToken, AppUser user, DateTime tokenDate, int refreshTokenTime);
         Task UpdatePasswordAsync(string userId, string resetToken, string newPassword);
         Task<List<ListUser>> GetAllUsersAsync();

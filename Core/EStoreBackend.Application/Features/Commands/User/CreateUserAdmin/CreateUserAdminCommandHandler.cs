@@ -1,28 +1,26 @@
 ﻿using EStoreBackend.Application.DTOs.User;
 using EStoreBackend.Application.Interfaces.Services;
-using EStoreBackend.Domain.Entities.Identity;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EStoreBackend.Application.Features.Commands.User.CreateUser
+namespace EStoreBackend.Application.Features.Commands.User.CreateUserAdmin
 {
-    public class CreateUserCommandHandler : IRequestHandler<CreateUserCommandRequest, CreateUserCommandResponse>
+    public class CreateUserAdminCommandHandler : IRequestHandler<CreateUserAdminCommandRequest, CreateUserAdminCommandResponse>
     {
         private readonly IUserService _userService;
 
-        public CreateUserCommandHandler(IUserService userService)
+        public CreateUserAdminCommandHandler(IUserService userService)
         {
             _userService = userService;
         }
 
-        public async Task<CreateUserCommandResponse> Handle(CreateUserCommandRequest request, CancellationToken cancellationToken)
+        public async Task<CreateUserAdminCommandResponse> Handle(CreateUserAdminCommandRequest request, CancellationToken cancellationToken)
         {
-            CreateUserResponse response= await _userService.CreateAsync(new()
+            CreateUserResponse response = await _userService.CreateAsync(new()
             {
                 FirstName = request.FirstName,
                 LastName = request.LastName,
@@ -33,7 +31,7 @@ namespace EStoreBackend.Application.Features.Commands.User.CreateUser
                 PasswordConfirm = request.PasswordConfirm,
             });
             if (response.Succeeded)
-                await _userService.AddRole(request.Email,"User");
+                await _userService.AddRole(request.Email, request.UserRole);
 
             return new()
             {
