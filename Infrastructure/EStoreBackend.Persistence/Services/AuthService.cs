@@ -97,5 +97,19 @@ namespace EStoreBackend.Persistence.Services
             }
             return false;
         }
+
+
+        public async Task<bool> Logout(string userName)
+        {
+            await _signInManager.SignOutAsync();
+            var user = await _userManager.FindByNameAsync(userName);
+            if (user != null)
+            {
+                await _userService.UpdateRefreshTokenAsync(null,user,DateTime.UtcNow,0);
+                return true;
+            }
+            return false;
+        }
+
     }
 }
