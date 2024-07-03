@@ -33,6 +33,9 @@ namespace EStoreBackend.Persistence.Context
         public DbSet<Stock> Stocks { get; set; }
         public DbSet<Newsletter> Newsletters { get; set; }
         public DbSet<Contact> Contacts { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<Address> Address { get; set; }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
