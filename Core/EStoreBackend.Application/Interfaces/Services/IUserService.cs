@@ -15,5 +15,6 @@ namespace EStoreBackend.Application.Interfaces.Services
         Task UpdateRefreshTokenAsync(string refreshToken, AppUser user, DateTime tokenDate, int refreshTokenTime);
         Task UpdatePasswordAsync(string userId, string resetToken, string newPassword);
         Task<List<ListUser>> GetAllUsersAsync();
+        Task<ListUser> GetUserByUsernameAsync(string userName);
     }
 }
