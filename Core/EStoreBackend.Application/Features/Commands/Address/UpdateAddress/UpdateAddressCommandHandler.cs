@@ -26,7 +26,7 @@ namespace EStoreBackend.Application.Features.Commands.Address.UpdateAddress
             address.FirstName = request.FirstName;
             address.LastName = request.LastName;
             address.Phone = request.Phone;
-            address.AdressTitle = request.AdressTitle;
+            address.AddressTitle = request.AddressTitle;
             address.Country = request.Country;
             address.City = request.City;
             address.District = request.District;

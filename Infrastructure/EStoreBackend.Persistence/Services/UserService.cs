@@ -102,14 +102,16 @@ namespace EStoreBackend.Persistence.Services
         public async Task<ListUser> GetUserByUsernameAsync(string userName)
         {
             var user = await _userManager.FindByNameAsync(userName);
-            return new ListUser
-            {
-                Id = user.Id.ToString(),
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Email = user.Email,
-                UserName = user.UserName,
-            };
+            if(user != null)
+                return new ListUser
+                {
+                    Id = user.Id.ToString(),
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Email = user.Email,
+                    UserName = user.UserName,
+                };
+            return null;
         }
     }
 }

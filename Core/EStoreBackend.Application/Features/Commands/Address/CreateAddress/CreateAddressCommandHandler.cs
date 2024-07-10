@@ -29,7 +29,7 @@ namespace EStoreBackend.Application.Features.Commands.Address.CreateAddress
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 Phone = request.Phone,
-                AdressTitle = request.AdressTitle,
+                AddressTitle = request.AddressTitle,
                 Country = request.Country,
                 City = request.City,
                 District = request.District,

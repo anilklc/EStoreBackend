@@ -26,7 +26,7 @@ namespace EStoreBackend.API.Controllers
             return Ok(response);
         }
 
-        [HttpGet("[action]/{Id}")]
+        [HttpGet("[action]/{userName}")]
         public async Task<IActionResult> GetAddressByUsername([FromRoute] GetAddressByUsernameQueryRequest request)
         {
             GetAddressByUsernameQueryResponse response = await _mediator.Send(request);

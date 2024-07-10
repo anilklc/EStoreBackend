@@ -24,7 +24,7 @@ namespace EStoreBackend.Application.Features.Queries.Address.GetByIdAddress
                 FirstName = address.FirstName,
                 LastName = address.LastName,
                 Phone = address.Phone,
-                AdressTitle = address.AdressTitle,
+                AddressTitle = address.AddressTitle,
                 Country = address.Country,
                 City = address.City,
                 District = address.District,
