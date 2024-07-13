@@ -11,6 +11,8 @@ namespace EStoreBackend.Domain.Entities
     {
         public string UserId { get; set; }
         public decimal TotalPrice { get; set; }
+        public string AddressId { get; set; }
+        public string OrderStatus { get; set; } = String.Empty;
         public List<OrderDetail> OrderDetails { get; set; }
 
     }

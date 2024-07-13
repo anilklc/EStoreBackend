@@ -4,6 +4,7 @@ using EStoreBackend.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EStoreBackend.Persistence.Migrations
 {
     [DbContext(typeof(EStoreDbContext))]
-    partial class EStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240713112208_13072024mig_1")]
+    partial class _13072024mig_1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -428,7 +431,11 @@ namespace EStoreBackend.Persistence.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("OrderId")
+                    b.Property<string>("OrderId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("OrderId1")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("ProductAmount")
@@ -450,7 +457,7 @@ namespace EStoreBackend.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrderId");
+                    b.HasIndex("OrderId1");
 
                     b.ToTable("OrderDetails");
                 });
@@ -818,7 +825,7 @@ namespace EStoreBackend.Persistence.Migrations
                 {
                     b.HasOne("EStoreBackend.Domain.Entities.Order", "Order")
                         .WithMany("OrderDetails")
-                        .HasForeignKey("OrderId")
+                        .HasForeignKey("OrderId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

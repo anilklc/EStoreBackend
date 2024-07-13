@@ -4,6 +4,7 @@ using EStoreBackend.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EStoreBackend.Persistence.Migrations
 {
     [DbContext(typeof(EStoreDbContext))]
-    partial class EStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240712094705_12072024mig_3")]
+    partial class _12072024mig_3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -396,9 +399,8 @@ namespace EStoreBackend.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("AddressId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("AddressId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -415,6 +417,8 @@ namespace EStoreBackend.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AddressId");
 
                     b.ToTable("Orders");
                 });
@@ -812,6 +816,17 @@ namespace EStoreBackend.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Brand");
+                });
+
+            modelBuilder.Entity("EStoreBackend.Domain.Entities.Order", b =>
+                {
+                    b.HasOne("EStoreBackend.Domain.Entities.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Address");
                 });
 
             modelBuilder.Entity("EStoreBackend.Domain.Entities.OrderDetail", b =>

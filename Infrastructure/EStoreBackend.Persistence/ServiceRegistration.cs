@@ -70,6 +70,7 @@ namespace EStoreBackend.Persistence
             services.AddScoped<IOrderDetailWriteRepository, OrderDetailWriteRepository>();
             services.AddScoped<IOrderReadRepository, OrderReadRepository>();
             services.AddScoped<IOrderWriteRepository, OrderWriteRepository>();
+            services.AddScoped<IOrderService,OrderService>();
            
         }
     }
