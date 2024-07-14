@@ -39,6 +39,7 @@ namespace EStoreBackend.Persistence.Services
                 TotalPrice = createOrder.TotalPrice,
                 OrderStatus = createOrder.OrderStatus,
                 AddressId = createOrder.AddressId,
+                CargoTracking = createOrder.CargoTracking,
             };
 
             await _orderWriteRepository.AddAsync(order);

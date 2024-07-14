@@ -10,6 +10,7 @@ namespace EStoreBackend.Application.DTOs
         public decimal TotalPrice { get; set; }
         public string OrderStatus { get; set; } = string.Empty;
         public string AddressId { get; set; }
+        public string CargoTracking { get; set; } = String.Empty;
         public List<OrderDetails> OrderDetails { get; set; }
     }
 }

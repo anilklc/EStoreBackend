@@ -1,4 +1,5 @@
 ﻿using EStoreBackend.Application.Features.Commands.Order.CreateOrder;
+using EStoreBackend.Application.Features.Commands.Order.UpdateOrderCargo;
 using EStoreBackend.Application.Features.Commands.Order.UpdateOrderStatus;
 using EStoreBackend.Application.Features.Queries.Order.GetAllOrder;
 using EStoreBackend.Application.Features.Queries.Order.GetAllOrderByUserId;
@@ -44,6 +45,13 @@ namespace EStoreBackend.API.Controllers
         public async Task<IActionResult> UpdateOrderStatus([FromBody] UpdateOrderStatusCommandRequest request)
         {
             UpdateOrderStatusCommandResponse response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpPut("[action]")]
+        public async Task<IActionResult> UpdateOrderCargo([FromBody] UpdateOrderCargoCommandRequest request)
+        {
+            UpdateOrderCargoCommandResponse response = await _mediator.Send(request);
             return Ok(response);
         }
     }
