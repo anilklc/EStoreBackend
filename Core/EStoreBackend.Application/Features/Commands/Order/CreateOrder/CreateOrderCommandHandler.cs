@@ -17,7 +17,16 @@ namespace EStoreBackend.Application.Features.Commands.Order.CreateOrder
 
         public async Task<CreateOrderCommandResponse> Handle(CreateOrderCommandRequest request, CancellationToken cancellationToken)
         {
-            await _orderService.CreateOrderAsync(request.CreateOrder);
+           
+            await _orderService.CreateOrderAsync(new()
+            {
+                AddressId = request.AddressId,
+                CargoTracking =request.CargoTracking,
+                OrderDetails = request.OrderDetails,
+                OrderStatus = request.OrderStatus,
+                TotalPrice = request.TotalPrice,
+                UserName = request.UserName,
+            });
 
             return new CreateOrderCommandResponse();
         }
