@@ -22,9 +22,9 @@ namespace EStoreBackend.Application.Features.Commands.User.UpdatePassword
         {
             if (!request.Password.Equals(request.PasswordConfrim))
                 throw new PasswordChangeException("Password change failed");
-                    
-                    
-           await _userService.UpdatePasswordAsync(request.UserId, request.ResetToken, request.Password);
+
+                     
+           await _userService.UpdatePasswordAsync(request.UserName, request.Password);
 
             return new();
         }

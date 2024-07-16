@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -66,14 +67,13 @@ namespace EStoreBackend.Persistence.Services
             }
         }
 
-        public async Task UpdatePasswordAsync(string userId, string resetToken, string newPassword)
+        public async Task UpdatePasswordAsync(string userName, string newPassword)
         {
-            AppUser? user = await _userManager.FindByIdAsync(userId);
+            AppUser? user = await _userManager.FindByNameAsync(userName);
             if (user != null)
             {
-                byte[] tokenBytes = WebEncoders.Base64UrlDecode(resetToken);
-                resetToken = Encoding.UTF8.GetString(tokenBytes);
-                IdentityResult result = await _userManager.ResetPasswordAsync(user, resetToken, newPassword);
+                var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+                IdentityResult result = await _userManager.ResetPasswordAsync(user, token, newPassword);
                 if (result.Succeeded)
                 {
                     await _userManager.UpdateSecurityStampAsync(user);

@@ -13,7 +13,7 @@ namespace EStoreBackend.Application.Interfaces.Services
         Task<CreateUserResponse> CreateAsync(CreateUser user);
         Task<bool> AddRole(string email,string UserRole);
         Task UpdateRefreshTokenAsync(string refreshToken, AppUser user, DateTime tokenDate, int refreshTokenTime);
-        Task UpdatePasswordAsync(string userId, string resetToken, string newPassword);
+        Task UpdatePasswordAsync(string userId, string newPassword);
         Task<List<ListUser>> GetAllUsersAsync();
         Task<ListUser> GetUserByUsernameAsync(string userName);
     }
