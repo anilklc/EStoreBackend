@@ -20,7 +20,7 @@ namespace EStoreBackend.Application.Features.Queries.Order.GetAllOrder
 
         public async Task<GetAllOrderQueryResponse> Handle(GetAllOrderQueryRequest request, CancellationToken cancellationToken)
         {
-            var orders = _orderService.GetAllOrder(request.Status);
+            var orders = await _orderService.GetAllOrder(request.Status);
             return new()
             {
                 Orders = orders,
