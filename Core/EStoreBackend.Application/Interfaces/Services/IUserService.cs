@@ -16,5 +16,7 @@ namespace EStoreBackend.Application.Interfaces.Services
         Task UpdatePasswordAsync(string userId, string newPassword);
         Task<List<ListUser>> GetAllUsersAsync();
         Task<ListUser> GetUserByUsernameAsync(string userName);
+        Task<ListUser> GetUserByUserId(string Id);
+
     }
 }

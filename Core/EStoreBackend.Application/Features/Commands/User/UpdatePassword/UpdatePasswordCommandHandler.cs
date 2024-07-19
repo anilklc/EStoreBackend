@@ -24,7 +24,7 @@ namespace EStoreBackend.Application.Features.Commands.User.UpdatePassword
                 throw new PasswordChangeException("Password change failed");
 
                      
-           await _userService.UpdatePasswordAsync(request.UserName, request.Password);
+           await _userService.UpdatePasswordAsync(request.Username, request.Password);
 
             return new();
         }

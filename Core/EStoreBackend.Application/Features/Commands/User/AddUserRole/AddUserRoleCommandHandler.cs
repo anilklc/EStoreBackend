@@ -22,6 +22,9 @@ namespace EStoreBackend.Application.Features.Commands.User.AddUserRole
         public async Task<AddUserRoleCommandResponse> Handle(AddUserRoleCommandRequest request, CancellationToken cancellationToken)
         {
             var user = await _userManager.FindByNameAsync(request.Username);
+            var userRole = await _userManager.GetRolesAsync(user);
+            if (userRole != null)
+                await _userManager.RemoveFromRolesAsync(user, userRole);
             await _userManager.AddToRoleAsync(user,request.Role);
             return new();
         }

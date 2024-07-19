@@ -1,7 +1,10 @@
 ﻿using EStoreBackend.Application.Features.Commands.User.CreateUser;
 using EStoreBackend.Application.Features.Commands.User.CreateUserAdmin;
 using EStoreBackend.Application.Features.Commands.User.UpdatePassword;
+using EStoreBackend.Application.Features.Queries.Brand.GetByIdBrand;
 using EStoreBackend.Application.Features.Queries.User;
+using EStoreBackend.Application.Features.Queries.User.GetUserByUserId;
+using EStoreBackend.Application.Features.Queries.User.GetUserByUsername;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -42,6 +45,13 @@ namespace EStoreBackend.API.Controllers
         public async Task<IActionResult> GetAllUsers()
         {
             GetAllUsersQueryResponse response = await _mediator.Send(new GetAllUsersQueryRequest());
+            return Ok(response);
+        }
+
+        [HttpGet("[action]/{UserId}")]
+        public async Task<IActionResult> GetUserByUserId([FromRoute] GetUserByUserIdQueryRequest request)
+        {
+            GetUserByUserIdQueryResponse response = await _mediator.Send(request);
             return Ok(response);
         }
     }
