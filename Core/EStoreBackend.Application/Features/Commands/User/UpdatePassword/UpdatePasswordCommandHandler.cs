@@ -20,13 +20,17 @@ namespace EStoreBackend.Application.Features.Commands.User.UpdatePassword
 
         public async Task<UpdatePasswordCommandResponse> Handle(UpdatePasswordCommandRequest request, CancellationToken cancellationToken)
         {
+            if (request.Authorized.Equals(request.Username) || request.Authorized.Equals("admin"))
+            {
+                await _userService.UpdatePasswordAsync(request.Username, request.Password);
+                return new();
+            }
+
             if (!request.Password.Equals(request.PasswordConfrim))
                 throw new PasswordChangeException("Password change failed");
-
-                     
-           await _userService.UpdatePasswordAsync(request.Username, request.Password);
-
-            return new();
+    
+          
+            throw new PasswordChangeException("Password change failed");
         }
     }
 }

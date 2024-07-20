@@ -1,5 +1,7 @@
-﻿using EStoreBackend.Application.Features.Commands.User.CreateUser;
+﻿using EStoreBackend.Application.Features.Commands.Prdouct.RemoveProduct;
+using EStoreBackend.Application.Features.Commands.User.CreateUser;
 using EStoreBackend.Application.Features.Commands.User.CreateUserAdmin;
+using EStoreBackend.Application.Features.Commands.User.Remove;
 using EStoreBackend.Application.Features.Commands.User.UpdatePassword;
 using EStoreBackend.Application.Features.Queries.Brand.GetByIdBrand;
 using EStoreBackend.Application.Features.Queries.User;
@@ -52,6 +54,13 @@ namespace EStoreBackend.API.Controllers
         public async Task<IActionResult> GetUserByUserId([FromRoute] GetUserByUserIdQueryRequest request)
         {
             GetUserByUserIdQueryResponse response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpDelete("[action]/{Id}/{AuthorizedRole}/{Authorized}")]
+        public async Task<IActionResult> RemoveUser([FromRoute] RemoveUserCommandRequest request)
+        {
+            RemoveUserCommandResponse response = await _mediator.Send(request);
             return Ok(response);
         }
     }

@@ -22,7 +22,7 @@ namespace EStoreBackend.Application.Features.Commands.User.LoginAdmin
         public async Task<LoginAdminCommandResponse> Handle(LoginAdminCommandRequest request, CancellationToken cancellationToken)
         {
             var roleControl = await _authService.RoleControl(request.Email);
-            if (roleControl.Any(r => r == "Admin" || r == "Editör"))
+            if (roleControl.Any(r => r == "Admin" || r == "Editor"))
             {
                 var token = await _authService.LoginAsync(request.Email, request.Password);
                 return new LoginAdminSuccessCommandResponse()

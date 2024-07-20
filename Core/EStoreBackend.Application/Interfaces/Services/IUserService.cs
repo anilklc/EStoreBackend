@@ -17,6 +17,7 @@ namespace EStoreBackend.Application.Interfaces.Services
         Task<List<ListUser>> GetAllUsersAsync();
         Task<ListUser> GetUserByUsernameAsync(string userName);
         Task<ListUser> GetUserByUserId(string Id);
+        Task DeleteUserAsync(string Id);
 
     }
 }

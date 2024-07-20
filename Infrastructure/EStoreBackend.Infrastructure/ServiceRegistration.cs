@@ -53,7 +53,7 @@ namespace EStoreBackend.Infrastructure
                 options.AddPolicy("EditorOrAdmin", policy =>
                 {
                     policy.AuthenticationSchemes.Add("Admin");
-                    policy.RequireRole("Editör", "Admin");
+                    policy.RequireRole("Editor", "Admin");
                 });
                 options.AddPolicy("User", policy =>
                 {

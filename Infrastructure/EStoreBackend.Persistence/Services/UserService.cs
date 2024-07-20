@@ -128,5 +128,17 @@ namespace EStoreBackend.Persistence.Services
                 };
             return null;
         }
+        
+        public async Task DeleteUserAsync(string Id)
+        {
+            var user = await _userManager.FindByIdAsync(Id);
+
+            if (user != null && !user.UserName.Equals("admin"))
+                await _userManager.DeleteAsync(user);
+
+            else
+                throw new NotFoundUserException();
+
+        }
     }
 }

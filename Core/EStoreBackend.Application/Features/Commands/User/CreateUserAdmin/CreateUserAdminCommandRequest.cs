@@ -4,6 +4,8 @@ namespace EStoreBackend.Application.Features.Commands.User.CreateUserAdmin
 {
     public class CreateUserAdminCommandRequest : IRequest<CreateUserAdminCommandResponse>
     {
+        public string AuthorizedRole { get; set; }
+        public string Authorized { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Username { get; set; }

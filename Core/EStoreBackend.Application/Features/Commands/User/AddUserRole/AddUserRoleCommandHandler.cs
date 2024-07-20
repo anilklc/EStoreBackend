@@ -1,4 +1,5 @@
-﻿using EStoreBackend.Domain.Entities.Identity;
+﻿using EStoreBackend.Application.Exceptions;
+using EStoreBackend.Domain.Entities.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -21,6 +22,9 @@ namespace EStoreBackend.Application.Features.Commands.User.AddUserRole
 
         public async Task<AddUserRoleCommandResponse> Handle(AddUserRoleCommandRequest request, CancellationToken cancellationToken)
         {
+            if(!request.Authorized.Equals("admin"))
+                throw new Exception("Role change failed");
+
             var user = await _userManager.FindByNameAsync(request.Username);
             var userRole = await _userManager.GetRolesAsync(user);
             if (userRole != null)
