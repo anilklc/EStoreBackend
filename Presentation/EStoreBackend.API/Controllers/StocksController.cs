@@ -6,6 +6,7 @@ using EStoreBackend.Application.Features.Queries.BrandImage.GetBrandImageById;
 using EStoreBackend.Application.Features.Queries.Stock.GetAllStockByIdProduct;
 using EStoreBackend.Application.Features.Queries.Stock.GetStockById;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -35,6 +36,7 @@ namespace EStoreBackend.API.Controllers
             return Ok(response);
         }
 
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "EditorOrAdmin")]
         [HttpPost("[action]")]
         public async Task<IActionResult> CreateStock([FromBody] CreateStockCommandRequest request)
         {
@@ -42,6 +44,7 @@ namespace EStoreBackend.API.Controllers
             return Ok(response);
         }
 
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "EditorOrAdmin")]
         [HttpPut("[action]")]
         public async Task<IActionResult> UpdateStock([FromBody] UpdateStockCommandRequest request)
         {
@@ -49,6 +52,7 @@ namespace EStoreBackend.API.Controllers
             return Ok(response);
         }
 
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "AdminOnly")]
         [HttpDelete("[action]/{Id}")]
         public async Task<IActionResult> RemoveStock(string Id)
         {

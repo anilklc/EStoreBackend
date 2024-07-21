@@ -6,6 +6,7 @@ using EStoreBackend.Application.Features.Queries.ProductImage.GetProductImageByI
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EStoreBackend.API.Controllers
 {
@@ -34,7 +35,7 @@ namespace EStoreBackend.API.Controllers
             return Ok(response);
         }
 
-
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "AdminOnly")]
         [HttpPost("[action]")]
         public async Task<IActionResult> CreateProductImage(IFormFile formFile, string ProductId)
         {
@@ -43,6 +44,7 @@ namespace EStoreBackend.API.Controllers
             return Ok(response);
         }
 
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "EditorOrAdmin")]
         [HttpPut("[action]")]
         public async Task<IActionResult> UpdateProductImage(IFormFile formFile, string id)
         {
@@ -51,6 +53,7 @@ namespace EStoreBackend.API.Controllers
             return Ok(response);
         }
 
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "AdminOnly")]
         [HttpDelete("[action]/{Id}")]
         public async Task<IActionResult> RemoveProductImage(string Id)
         {

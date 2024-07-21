@@ -8,6 +8,7 @@ using EStoreBackend.Application.Features.Queries.User;
 using EStoreBackend.Application.Features.Queries.User.GetUserByUserId;
 using EStoreBackend.Application.Features.Queries.User.GetUserByUsername;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,6 +30,7 @@ namespace EStoreBackend.API.Controllers
             return Ok(response);
         }
 
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "AdminOnly")]
         [HttpPost("[action]")]
         public async Task<IActionResult> CreateUserAdmin(CreateUserAdminCommandRequest createUserAdminCommandRequest)
         {
@@ -36,6 +38,7 @@ namespace EStoreBackend.API.Controllers
             return Ok(response);
         }
 
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "All")]
         [HttpPost("[action]")]
         public async Task<IActionResult> UpdatePassword([FromBody] UpdatePasswordCommandRequest updatePasswordCommandRequest)
         {
@@ -43,6 +46,7 @@ namespace EStoreBackend.API.Controllers
             return Ok(response);
         }
 
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "AdminOnly")]
         [HttpGet("[action]")]
         public async Task<IActionResult> GetAllUsers()
         {
@@ -50,6 +54,7 @@ namespace EStoreBackend.API.Controllers
             return Ok(response);
         }
 
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "EditorOrAdmin")]
         [HttpGet("[action]/{UserId}")]
         public async Task<IActionResult> GetUserByUserId([FromRoute] GetUserByUserIdQueryRequest request)
         {
@@ -57,6 +62,7 @@ namespace EStoreBackend.API.Controllers
             return Ok(response);
         }
 
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "AdminOnly")]
         [HttpDelete("[action]/{Id}/{AuthorizedRole}/{Authorized}")]
         public async Task<IActionResult> RemoveUser([FromRoute] RemoveUserCommandRequest request)
         {

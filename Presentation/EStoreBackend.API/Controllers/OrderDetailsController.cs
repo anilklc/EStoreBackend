@@ -1,6 +1,7 @@
 ﻿using EStoreBackend.Application.Features.Queries.Order.GetAllOrderByUserId;
 using EStoreBackend.Application.Features.Queries.OrderDetail.GetAllOrderDetailByOrderId;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,6 +18,7 @@ namespace EStoreBackend.API.Controllers
             _mediator = mediator;
         }
 
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "All")]
         [HttpGet("[action]/{Id}")]
         public async Task<IActionResult> GetAllOrderByOrderId([FromRoute] GetAllOrderDetailByOrderIdQueryRequest request)
         {

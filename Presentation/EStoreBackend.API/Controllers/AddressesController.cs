@@ -17,15 +17,13 @@ namespace EStoreBackend.API.Controllers
     public class AddressesController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly CacheHelper _cacheHelper;
-        public AddressesController(IMediator mediator, CacheHelper cacheHelper)
+        public AddressesController(IMediator mediator)
         {
             _mediator = mediator;
-            _cacheHelper = cacheHelper;
         }
 
         [HttpGet("[action]/{Id}")]
-        [OutputCache(PolicyName = "Cache", Tags = ["Address"])]
+       
 
         public async Task<IActionResult> GetByIdAddress([FromRoute] GetByIdAddressQueryRequest request)
         {
@@ -34,40 +32,34 @@ namespace EStoreBackend.API.Controllers
         }
 
         [HttpGet("[action]/{userName}")]
-        [OutputCache(PolicyName = "Cache", Tags = ["Address"])]
-
         public async Task<IActionResult> GetAddressByUsername([FromRoute] GetAddressByUsernameQueryRequest request)
         {
             GetAddressByUsernameQueryResponse response = await _mediator.Send(request);
             return Ok(response);
         }
 
-        [Authorize(AuthenticationSchemes = "Admin", Policy = "AdminOnly")]
-
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "User")]
         [HttpPost("[action]")]
         public async Task<IActionResult> CreateAddress([FromBody] CreateAddressCommandRequest request)
         {
             CreateAddressCommandResponse response = await _mediator.Send(request);
-            await _cacheHelper.EvictByTagAsync("Address");
             return Ok(response);
         }
 
-        [Authorize(AuthenticationSchemes = "Admin", Policy = "AdminOrEditor")]
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "User")]
         [HttpPut("[action]")]
         public async Task<IActionResult> UpdateAddress([FromBody] UpdateAddressCommandRequest request)
         {
             UpdateAddressCommandResponse response = await _mediator.Send(request);
-            await _cacheHelper.EvictByTagAsync("Address");
             return Ok(response);
         }
 
-        [Authorize(AuthenticationSchemes = "Admin", Policy = "AdminOnly")]
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "User")]
         [HttpDelete("[action]/{Id}")]
         public async Task<IActionResult> RemoveAddress(string Id)
         {
             RemoveAddressCommandRequest request = new RemoveAddressCommandRequest { Id = Id };
             RemoveAddressCommandResponse response = await _mediator.Send(request);
-            await _cacheHelper.EvictByTagAsync("Address");
             return Ok(response);
         }
 

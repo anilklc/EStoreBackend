@@ -4,6 +4,7 @@ using EStoreBackend.Application.Features.Commands.Policy.UpdatePolciy;
 using EStoreBackend.Application.Features.Queries.Policy.GetAllPolicy;
 using EStoreBackend.Application.Features.Queries.Policy.GetByIdPolicy;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,6 +35,7 @@ namespace EStoreBackend.API.Controllers
             return Ok(response);
         }
 
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "AdminOnly")]
         [HttpPost("[action]")]
         public async Task<IActionResult> CreatePolicy([FromBody] CreatePolicyCommandRequest request)
         {
@@ -41,6 +43,7 @@ namespace EStoreBackend.API.Controllers
             return Ok(response);
         }
 
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "EditorOrAdmin")]
         [HttpPut("[action]")]
         public async Task<IActionResult> UpdatePolicy([FromBody] UpdatePolicyCommandRequest request)
         {
@@ -48,6 +51,7 @@ namespace EStoreBackend.API.Controllers
             return Ok(response);
         }
 
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "AdminOnly")]
         [HttpDelete("[action]/{Id}")]
         public async Task<IActionResult> RemovePolicy(string Id)
         {

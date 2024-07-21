@@ -4,6 +4,7 @@ using EStoreBackend.Application.Features.Commands.Order.UpdateOrderStatus;
 using EStoreBackend.Application.Features.Queries.Order.GetAllOrder;
 using EStoreBackend.Application.Features.Queries.Order.GetAllOrderByUserId;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,6 +22,7 @@ namespace EStoreBackend.API.Controllers
         }
 
         [HttpGet("[action]/{Status}")]
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "EditorOrAdmin")]
         public async Task<IActionResult> GetAllOrder([FromRoute] GetAllOrderQueryRequest request)
         {
             GetAllOrderQueryResponse response = await _mediator.Send(request);
@@ -28,6 +30,7 @@ namespace EStoreBackend.API.Controllers
         }
 
         [HttpGet("[action]/{Username}/{Status}")]
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "All")]
         public async Task<IActionResult> GetAllOrderByUserId([FromRoute] GetAllOrderByUserIdQueryRequest request)
         {
             GetAllOrderByUserIdQueryResponse response = await _mediator.Send(request);
@@ -35,6 +38,7 @@ namespace EStoreBackend.API.Controllers
         }
 
         [HttpPost("[action]")]
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "User")]
         public async Task<IActionResult> CreateOrder([FromBody] CreateOrderCommandRequest request)
         {
             CreateOrderCommandResponse response = await _mediator.Send(request);
@@ -42,6 +46,7 @@ namespace EStoreBackend.API.Controllers
         }
 
         [HttpPut("[action]")]
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "EditorOrAdmin")]
         public async Task<IActionResult> UpdateOrderStatus([FromBody] UpdateOrderStatusCommandRequest request)
         {
             UpdateOrderStatusCommandResponse response = await _mediator.Send(request);
@@ -49,6 +54,7 @@ namespace EStoreBackend.API.Controllers
         }
 
         [HttpPut("[action]")]
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "EditorOrAdmin")]
         public async Task<IActionResult> UpdateOrderCargo([FromBody] UpdateOrderCargoCommandRequest request)
         {
             UpdateOrderCargoCommandResponse response = await _mediator.Send(request);

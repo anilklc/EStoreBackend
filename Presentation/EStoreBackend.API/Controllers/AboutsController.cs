@@ -45,7 +45,7 @@ namespace EStoreBackend.API.Controllers
         public async Task<IActionResult> CreateAbout([FromBody] CreateAboutCommandRequest request)
         {
             CreateAboutCommandResponse response = await _mediator.Send(request);
-            await _cacheHelper.EvictByTagAsync("AboutsController_GetAllAbout");
+            await _cacheHelper.EvictByTagAsync("About");
             return Ok(response);
         }
 

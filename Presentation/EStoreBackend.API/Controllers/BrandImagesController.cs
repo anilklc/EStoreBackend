@@ -6,6 +6,7 @@ using EStoreBackend.Application.Features.Queries.Brand.GetByIdBrand;
 using EStoreBackend.Application.Features.Queries.BrandImage.GetBrandImageByBrandId;
 using EStoreBackend.Application.Features.Queries.BrandImage.GetBrandImageById;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,6 +23,7 @@ namespace EStoreBackend.API.Controllers
             _mediator = mediator;
         }
 
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "EditorOrAdmin")]
         [HttpGet("[action]/{BrandId}")]
         public async Task<IActionResult> GetBrandImageByBrandId([FromRoute] GetBrandImageByBrandIdQueryRequest request)
         {
@@ -29,6 +31,7 @@ namespace EStoreBackend.API.Controllers
             return Ok(response);
         }
 
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "EditorOrAdmin")]
         [HttpGet("[action]/{Id}")]
         public async Task<IActionResult> GetBrandImageById([FromRoute] GetBrandImageByIdQueryRequest request)
         {
@@ -36,7 +39,7 @@ namespace EStoreBackend.API.Controllers
             return Ok(response);
         }
 
-
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "AdminOnly")]
         [HttpPost("[action]")]
         public async Task<IActionResult> CreateBrandImage(IFormFile formFile,string brandId)
         {   
@@ -45,6 +48,7 @@ namespace EStoreBackend.API.Controllers
             return Ok(response);
         }
 
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "EditorOrAdmin")]
         [HttpPut("[action]")]
         public async Task<IActionResult> UpdateBrandImage(IFormFile formFile, string id)
         {
@@ -53,6 +57,7 @@ namespace EStoreBackend.API.Controllers
             return Ok(response);
         }
 
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "AdminOnly")]
         [HttpDelete("[action]/{Id}")]
         public async Task<IActionResult> RemoveBrandImage(string Id)
         {

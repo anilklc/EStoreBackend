@@ -2,6 +2,7 @@
 using EStoreBackend.Application.Features.Commands.User.AddUserRole;
 using EStoreBackend.Application.Features.Queries.Role.GetAllRole;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +17,8 @@ namespace EStoreBackend.API.Controllers
         {
             _mediator = mediator;
         }
+
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "AdminOnly")]
         [HttpGet("[action]")]
         public async Task<IActionResult> GetAllRole()
         {
@@ -23,6 +26,7 @@ namespace EStoreBackend.API.Controllers
             return Ok(response);
         }
 
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "AdminOnly")]
         [HttpPost("[action]")]
         public async Task<IActionResult> CreateRole([FromBody] CreateRoleCommandRequest request)
         {
@@ -30,6 +34,7 @@ namespace EStoreBackend.API.Controllers
             return Ok(response);
         }
 
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "AdminOnly")]
         [HttpPost("[action]")]
         public async Task<IActionResult> AddRoleUser([FromBody] AddUserRoleCommandRequest request)
         {

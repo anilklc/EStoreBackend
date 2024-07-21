@@ -4,6 +4,7 @@ using EStoreBackend.Application.Features.Commands.ReviewImage.UpdateReviewImage;
 using EStoreBackend.Application.Features.Queries.ReviewImage.GetReviewImageById;
 using EStoreBackend.Application.Features.Queries.ReviewImage.GetReviewImageByReviewId;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -35,7 +36,7 @@ namespace EStoreBackend.API.Controllers
         }
 
 
-       
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "AdminOnly")]
         [HttpPost("[action]")]
         public async Task<IActionResult> CreateReviewImage(IFormFile formFile, string ReviewId)
         {
@@ -44,6 +45,7 @@ namespace EStoreBackend.API.Controllers
             return Ok(response);
         }
 
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "EditorOrAdmin")]
         [HttpPut("[action]")]
         public async Task<IActionResult> UpdateReviewImage(IFormFile formFile, string id)
         {
@@ -52,6 +54,7 @@ namespace EStoreBackend.API.Controllers
             return Ok(response);
         }
 
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "AdminOnly")]
         [HttpDelete("[action]/{Id}")]
         public async Task<IActionResult> RemoveReviewImage(string Id)
         {

@@ -5,6 +5,7 @@ using EStoreBackend.Application.Features.Queries.Slider.GetAllActiveSliderWithSl
 using EStoreBackend.Application.Features.Queries.SliderImage.GetSliderImageById;
 using EStoreBackend.Application.Features.Queries.SliderImage.GetSliderImageBySliderId;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,6 +21,7 @@ namespace EStoreBackend.API.Controllers
         {
             _mediator = mediator;
         }
+
         [HttpGet("[action]/{SliderId}")]
         public async Task<IActionResult> GetSliderImageBySliderId([FromRoute] GetSliderImageBySliderIdQueryRequest request)
         {
@@ -41,6 +43,7 @@ namespace EStoreBackend.API.Controllers
             return Ok(response);
         }
 
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "AdminOnly")]
         [HttpPost("[action]")]
         public async Task<IActionResult> CreateSliderImage(IFormFile formFile, string SliderId)
         {
@@ -49,6 +52,7 @@ namespace EStoreBackend.API.Controllers
             return Ok(response);
         }
 
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "EditorOrAdmin")]
         [HttpPut("[action]")]
         public async Task<IActionResult> UpdateSliderImage(IFormFile formFile, string id)
         {
@@ -57,6 +61,7 @@ namespace EStoreBackend.API.Controllers
             return Ok(response);
         }
 
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "AdminOnly")]
         [HttpDelete("[action]/{Id}")]
         public async Task<IActionResult> RemoveSliderImage(string Id)
         {

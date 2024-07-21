@@ -60,6 +60,11 @@ namespace EStoreBackend.Infrastructure
                     policy.AuthenticationSchemes.Add("Admin");
                     policy.RequireRole("User");
                 });
+                options.AddPolicy("All", policy =>
+                {
+                    policy.AuthenticationSchemes.Add("Admin");
+                    policy.RequireRole("Editor", "Admin","User");
+                });
 
             });
         }

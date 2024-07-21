@@ -4,6 +4,7 @@ using EStoreBackend.Application.Features.Commands.Footer.UpdateFooter;
 using EStoreBackend.Application.Features.Queries.Footer.GetAllFooter;
 using EStoreBackend.Application.Features.Queries.Footer.GetByIdFooter;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,6 +34,7 @@ namespace EStoreBackend.API.Controllers
             return Ok(response);
         }
 
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "AdminOnly")]
         [HttpPost("[action]")]
         public async Task<IActionResult> CreateFooter([FromBody] CreateFooterCommandRequest request)
         {
@@ -40,6 +42,7 @@ namespace EStoreBackend.API.Controllers
             return Ok(response);
         }
 
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "EditorOrAdmin")]
         [HttpPut("[action]")]
         public async Task<IActionResult> UpdateFooter([FromBody] UpdateFooterCommandRequest request)
         {
@@ -47,6 +50,7 @@ namespace EStoreBackend.API.Controllers
             return Ok(response);
         }
 
+        [Authorize(AuthenticationSchemes = "Admin", Policy = "AdminOnly")]
         [HttpDelete("[action]/{Id}")]
         public async Task<IActionResult> RemoveFooter(string Id)
         {
