@@ -22,7 +22,7 @@ namespace EStoreBackend.Infrastructure.Services.Mail
 
         public async Task SendMailAsync(string to, string subject, string body, bool bodyHtml = true)
         {
-            await SendMailAsync(to, subject, body, bodyHtml);
+            await SendMailAsync(new[] {to}, subject, body, bodyHtml);
         }
 
         public async Task SendMailAsync(string[] tos, string subject, string body, bool bodyHtml = true)
@@ -48,13 +48,12 @@ namespace EStoreBackend.Infrastructure.Services.Mail
 
         public async Task SendPasswordResetMailAsync(string to, string userId, string resetToken)
         {
-            StringBuilder mail = new();
+            string clientUrl = _configuration["ClientUrl"];
+            string resetLink = $"{clientUrl}/UpdatePassword/{userId}/{resetToken}";
+
+            StringBuilder mail = new StringBuilder();
             mail.AppendLine("Hello<br>If you have requested a new password, you can renew your password from the link below.<br><strong><a target=\"_blank\" href=\"");
-            mail.AppendLine(_configuration["ClientUrl"]);
-            mail.AppendLine("/update-password/");
-            mail.AppendLine(userId);
-            mail.AppendLine("/");
-            mail.AppendLine(resetToken);
+            mail.AppendLine(resetLink);
             mail.AppendLine("\">Click to request a new password.</a></strong><br><br><span style=\"font-size:12px;\">NOTE: If this request has not been fulfilled by you, please do not take this e-mail seriously.</span><br>Regards...");
 
             await SendMailAsync(to, "Password Reset Request", mail.ToString());

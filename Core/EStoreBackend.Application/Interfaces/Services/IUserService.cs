@@ -1,5 +1,6 @@
 ﻿using EStoreBackend.Application.DTOs.User;
 using EStoreBackend.Domain.Entities.Identity;
+using SendGrid.Helpers.Mail;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace EStoreBackend.Application.Interfaces.Services
         Task<bool> AddRole(string email,string UserRole);
         Task UpdateRefreshTokenAsync(string refreshToken, AppUser user, DateTime tokenDate, int refreshTokenTime);
         Task UpdatePasswordAsync(string userId, string newPassword);
+        Task FargotPasswordAsync(string userId, string resetToken, string newPassword);
         Task<List<ListUser>> GetAllUsersAsync();
         Task<ListUser> GetUserByUsernameAsync(string userName);
         Task<ListUser> GetUserByUserId(string Id);

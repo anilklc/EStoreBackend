@@ -80,9 +80,8 @@ namespace EStoreBackend.Persistence.Services
             if (user != null)
             {
                 string resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
-                byte[] tokenBytes = Encoding.UTF8.GetBytes(resetToken);
-                resetToken = WebEncoders.Base64UrlEncode(tokenBytes);
-                await _mailService.SendPasswordResetMailAsync(email, user.Id.ToString(), resetToken);
+                string encodedToken = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(resetToken));
+                await _mailService.SendPasswordResetMailAsync(email, user.Id.ToString(), encodedToken);
             }
         }
         public async Task<bool> VerifyResetTokenAsync(string resetToken, string userId)

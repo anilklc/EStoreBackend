@@ -1,3 +1,4 @@
+using EStoreBackend.API.Helper;
 using EStoreBackend.Application;
 using EStoreBackend.Application.Exceptions;
 using EStoreBackend.Infrastructure;
@@ -14,6 +15,16 @@ builder.Services.AddInfrastructureServices(builder.Configuration);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddOutputCache(options =>
+{
+    options.AddPolicy("Cache",policy =>
+    {
+        policy.Expire(TimeSpan.FromHours(2));
+    });
+});
+
+builder.Services.AddScoped<CacheHelper>();
 
 var app = builder.Build();
 
@@ -33,6 +44,8 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.UseOutputCache();
 
 app.MapControllers();
 

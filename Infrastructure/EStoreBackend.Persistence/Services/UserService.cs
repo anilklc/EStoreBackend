@@ -75,13 +75,24 @@ namespace EStoreBackend.Persistence.Services
                 var token = await _userManager.GeneratePasswordResetTokenAsync(user);
                 IdentityResult result = await _userManager.ResetPasswordAsync(user, token, newPassword);
                 if (result.Succeeded)
-                {
                     await _userManager.UpdateSecurityStampAsync(user);
-                }
                 else
-                {
                     throw new PasswordChangeException();
-                }
+                
+            }
+        }
+
+        public async Task FargotPasswordAsync(string userId, string resetToken, string newPassword)
+        {
+            AppUser user = await _userManager.FindByIdAsync(userId);
+            if (user != null)
+            {
+                string decodedToken = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(resetToken));
+                IdentityResult result = await _userManager.ResetPasswordAsync(user, decodedToken, newPassword);
+                if (result.Succeeded)
+                    await _userManager.UpdateSecurityStampAsync(user);
+                else
+                    throw new PasswordChangeException();
             }
         }
 

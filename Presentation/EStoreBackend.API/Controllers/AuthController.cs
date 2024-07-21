@@ -1,4 +1,5 @@
-﻿using EStoreBackend.Application.Features.Commands.User.LoginAdmin;
+﻿using EStoreBackend.Application.Features.Commands.User.FargotPassword;
+using EStoreBackend.Application.Features.Commands.User.LoginAdmin;
 using EStoreBackend.Application.Features.Commands.User.LoginUser;
 using EStoreBackend.Application.Features.Commands.User.Logout;
 using EStoreBackend.Application.Features.Commands.User.PasswordReset;
@@ -51,6 +52,13 @@ namespace EStoreBackend.API.Controllers
         public async Task<IActionResult> PasswordReset([FromBody] PasswordResetCommandRequest passwordResetCommandRequest)
         {
             PasswordResetCommandResponse response = await _mediator.Send(passwordResetCommandRequest);
+            return Ok(response);
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> FargotPassword([FromBody] FargotPasswordCommandRequest fargotPasswordCommandRequest)
+        {
+            FargotPasswordCommandResponse response = await _mediator.Send(fargotPasswordCommandRequest);
             return Ok(response);
         }
 
