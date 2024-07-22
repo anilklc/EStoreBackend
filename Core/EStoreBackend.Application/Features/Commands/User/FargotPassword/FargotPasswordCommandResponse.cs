@@ -1,6 +1,6 @@
-﻿namespace EStoreBackend.Application.Features.Commands.User.FargotPassword
+﻿namespace EStoreBackend.Application.Features.Commands.User.ForgotPassword
 {
-    public class FargotPasswordCommandResponse
+    public class ForgotPasswordCommandResponse
     {
     }
 }

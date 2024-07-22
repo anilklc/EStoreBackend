@@ -82,7 +82,7 @@ namespace EStoreBackend.Persistence.Services
             }
         }
 
-        public async Task FargotPasswordAsync(string userId, string resetToken, string newPassword)
+        public async Task ForgotPasswordAsync(string userId, string resetToken, string newPassword)
         {
             AppUser user = await _userManager.FindByIdAsync(userId);
             if (user != null)

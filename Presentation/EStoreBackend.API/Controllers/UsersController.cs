@@ -38,7 +38,7 @@ namespace EStoreBackend.API.Controllers
             return Ok(response);
         }
 
-        [Authorize(AuthenticationSchemes = "Admin", Policy = "All")]
+        [Authorize(AuthenticationSchemes = "Admin")]
         [HttpPost("[action]")]
         public async Task<IActionResult> UpdatePassword([FromBody] UpdatePasswordCommandRequest updatePasswordCommandRequest)
         {

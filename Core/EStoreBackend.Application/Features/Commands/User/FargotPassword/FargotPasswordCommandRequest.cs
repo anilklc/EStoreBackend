@@ -1,8 +1,8 @@
 ﻿using MediatR;
 
-namespace EStoreBackend.Application.Features.Commands.User.FargotPassword
+namespace EStoreBackend.Application.Features.Commands.User.ForgotPassword
 {
-    public class FargotPasswordCommandRequest : IRequest<FargotPasswordCommandResponse>
+    public class ForgotPasswordCommandRequest : IRequest<ForgotPasswordCommandResponse>
     {
         public string Id { get; set; }
         public string ResetToken { get; set; }

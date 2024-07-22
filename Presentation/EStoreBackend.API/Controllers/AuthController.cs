@@ -1,4 +1,4 @@
-﻿using EStoreBackend.Application.Features.Commands.User.FargotPassword;
+﻿using EStoreBackend.Application.Features.Commands.User.ForgotPassword;
 using EStoreBackend.Application.Features.Commands.User.LoginAdmin;
 using EStoreBackend.Application.Features.Commands.User.LoginUser;
 using EStoreBackend.Application.Features.Commands.User.Logout;
@@ -56,9 +56,9 @@ namespace EStoreBackend.API.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> FargotPassword([FromBody] FargotPasswordCommandRequest fargotPasswordCommandRequest)
+        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordCommandRequest ForgotPasswordCommandRequest)
         {
-            FargotPasswordCommandResponse response = await _mediator.Send(fargotPasswordCommandRequest);
+            ForgotPasswordCommandResponse response = await _mediator.Send(ForgotPasswordCommandRequest);
             return Ok(response);
         }
 

@@ -7,22 +7,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EStoreBackend.Application.Features.Commands.User.FargotPassword
+namespace EStoreBackend.Application.Features.Commands.User.ForgotPassword
 {
-    public class FargotPasswordCommandHandler : IRequestHandler<FargotPasswordCommandRequest, FargotPasswordCommandResponse>
+    public class ForgotPasswordCommandHandler : IRequestHandler<ForgotPasswordCommandRequest, ForgotPasswordCommandResponse>
     {
         private readonly IUserService _userService;
-        public FargotPasswordCommandHandler(IUserService userService)
+        public ForgotPasswordCommandHandler(IUserService userService)
         {
             _userService = userService;
         }
 
-        public async Task<FargotPasswordCommandResponse> Handle(FargotPasswordCommandRequest request, CancellationToken cancellationToken)
+        public async Task<ForgotPasswordCommandResponse> Handle(ForgotPasswordCommandRequest request, CancellationToken cancellationToken)
         {
             if(!request.Password.Equals(request.PasswordConfirm))
                 throw new PasswordChangeException("Password change failed");
 
-            await _userService.FargotPasswordAsync(request.Id,request.ResetToken,request.Password);
+            await _userService.ForgotPasswordAsync(request.Id,request.ResetToken,request.Password);
             return new();
         }
     }
